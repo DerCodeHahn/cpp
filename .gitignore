@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+!/build-u2-Desktop-Debug
+*.pri
+*.pro
+*.user
