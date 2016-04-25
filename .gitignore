@@ -29,5 +29,3 @@
 
 !/build-u2-Desktop-Debug
 *.pri
-*.pro
-*.user
