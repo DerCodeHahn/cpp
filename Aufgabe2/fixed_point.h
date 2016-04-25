@@ -22,7 +22,7 @@ public:
     Fixed_Point& operator++(int rhs);
     Fixed_Point operator--();
     Fixed_Point& operator--(int rhs);
-    Fixed_Point abs()const;
+    friend Fixed_Point abs(Fixed_Point fp);
     std::string toString() const;
     int32_t getQ() const;
 private:

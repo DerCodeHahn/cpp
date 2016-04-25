@@ -8,7 +8,7 @@ Fixed_Point::Fixed_Point(float n):mQ((int32_t)(n*0x10000))
 }
 
 
-Fixed_Point::Fixed_Point(int32_t n):mQ(n)
+Fixed_Point::Fixed_Point(int32_t n):mQ(n *0x10000 )
 {
 }
 
@@ -117,6 +117,8 @@ int32_t Fixed_Point::getQ() const
     return mQ;
 }
 
-Fixed_Point Fixed_Point::abs(){
-    return mq & 0x7FFFFFFFFF;
+Fixed_Point abs(Fixed_Point fp){
+    if(fp < 0 )
+        return fp * -1;
+    return fp;
 }
