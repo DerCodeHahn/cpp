@@ -57,6 +57,27 @@ Fixed_Point Fixed_Point::operator /(Fixed_Point rhs) const
     return fp;
 }
 
+bool Fixed_Point::operator<(Fixed_Point rhs) const
+{
+    return mQ < rhs.getQ();
+}
+bool Fixed_Point::operator>(Fixed_Point rhs) const
+{
+    return mQ > rhs.getQ();
+}
+bool Fixed_Point::operator==(Fixed_Point rhs) const
+{
+    return mQ == rhs.getQ();
+}
+bool Fixed_Point::operator<=(Fixed_Point rhs) const
+{
+    return mQ <= rhs.getQ();
+}
+bool Fixed_Point::operator>=(Fixed_Point rhs) const
+{
+    return mQ >= rhs.getQ();
+}
+
 std::string Fixed_Point::toString() const
 {
     float ret = (float) mQ;
