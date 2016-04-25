@@ -15,6 +15,16 @@ int main()
     Fixed_Point res4 = fp / fp2;
     cout << res.toString() << " " << res2.toString() << " "
          << res3.toString() << " "  << res4.toString()<< endl;
+
+    Fixed_Point increment(2.5f);
+    cout <<"Start "<< increment.toString()<<endl;
+    cout <<"pre "<< (++increment).toString()<< " post "<< (increment++).toString() << endl;
+    cout <<"erg "<< increment.toString()<<endl;
+
+    Fixed_Point decrement(2.5f);
+    cout <<"Start "<< decrement.toString()<<endl;
+    cout <<"pre "<< (--decrement).toString()<< " post "<< (decrement--).toString() << endl;
+    cout <<"erg "<< decrement.toString()<<endl;
     return 0;
 }
 

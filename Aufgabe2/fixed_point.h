@@ -18,6 +18,11 @@ public:
     bool operator==(Fixed_Point rhs) const;
     bool operator<=(Fixed_Point rhs) const;
     bool operator>=(Fixed_Point rhs) const;
+    Fixed_Point operator++();
+    Fixed_Point& operator++(int rhs);
+    Fixed_Point operator--();
+    Fixed_Point& operator--(int rhs);
+    Fixed_Point abs()const;
     std::string toString() const;
     int32_t getQ() const;
 private:

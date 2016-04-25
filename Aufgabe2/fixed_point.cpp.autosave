@@ -118,5 +118,5 @@ int32_t Fixed_Point::getQ() const
 }
 
 Fixed_Point Fixed_Point::abs(){
-    return mq & 0x7FFFFFFFFF;
+    return mQ * mQ / mQ*mQ;
 }
