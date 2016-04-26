@@ -8,3 +8,5 @@ SOURCES += main.cpp \
 
 HEADERS += \
     fixed_point.h
+
+DISTFILES +=

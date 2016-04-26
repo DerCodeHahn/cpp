@@ -18,6 +18,8 @@ public:
     bool operator==(Fixed_Point rhs) const;
     bool operator<=(Fixed_Point rhs) const;
     bool operator>=(Fixed_Point rhs) const;
+    std::ostream& operator<< ( std::ostream& os )const;
+    operator float();
     Fixed_Point operator++();
     Fixed_Point& operator++(int rhs);
     Fixed_Point operator--();

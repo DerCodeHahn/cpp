@@ -117,8 +117,18 @@ int32_t Fixed_Point::getQ() const
     return mQ;
 }
 
+Fixed_Point::operator float(){
+    return (float)mQ /0x10000;
+}
+
+std::ostream& Fixed_Point::operator<< ( std::ostream& os )const
+{
+    os << float(mQ);
+    return os;
+}
+
 Fixed_Point abs(Fixed_Point fp){
-    if(fp < 0 )
+    if(fp.mQ < 0 )
         fp.mQ =( fp.mQ^0xFFFFFFFF ) + 1;
     return fp;
 }
