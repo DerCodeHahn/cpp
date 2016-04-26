@@ -34,6 +34,7 @@ int main()
 
     Fixed_Point floater(2.34f);
     float fout = (float)floater;
-    cout<< fout <<endl;
+
+    cout<< floater <<" to float "<< fout << " to int "<< (int)floater <<endl;
     return 0;
 }

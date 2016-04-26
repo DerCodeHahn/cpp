@@ -121,6 +121,10 @@ Fixed_Point::operator float(){
     return (float)mQ /0x10000;
 }
 
+//Fixed_Point::operator int(){
+//    return (int)mQ /0x10000;
+//}
+
 std::ostream& Fixed_Point::operator<< ( std::ostream& os )const
 {
     os << float(mQ);

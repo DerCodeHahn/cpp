@@ -20,6 +20,7 @@ public:
     bool operator>=(Fixed_Point rhs) const;
     std::ostream& operator<< ( std::ostream& os )const;
     operator float();
+//    operator int();
     Fixed_Point operator++();
     Fixed_Point& operator++(int rhs);
     Fixed_Point operator--();
