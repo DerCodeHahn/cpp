@@ -7,8 +7,12 @@ int main()
 {
     float m = 5.0f;
     float n = 2.0f;
-    Fixed_Point fp(m);
-    Fixed_Point fp2(n);
+    for (float var = 0; var < 2.5; var += 0.1f) {
+        Fixed_Point <4,60> fp(var);//
+        cout << var <<": "<< fp.toString() << endl ;
+    }
+
+    /*Fixed_Point fp2(n);
     Fixed_Point res = fp + fp2;
     Fixed_Point res2 = fp - fp2;
     Fixed_Point res3 = fp * fp2;
@@ -35,6 +39,6 @@ int main()
     Fixed_Point floater(2.34f);
     float fout = (float)floater;
 
-    cout<< floater <<" to float "<< fout << " to int "<< (int)floater <<endl;
+    cout<< floater <<" to float "<< fout << " to int "<< (int)floater <<endl;*/
     return 0;
 }
