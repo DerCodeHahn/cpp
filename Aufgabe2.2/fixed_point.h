@@ -17,7 +17,7 @@ template<> struct smalestType<32> { using type = int32_t;
 template<> struct smalestType<64> { using type = int64_t; };
 
 
-template<int lhb, int rhb>
+template<const int lhb,const int rhb>
 class fixed_Point{
 public:
     //fixed_Point(int number);
@@ -35,7 +35,11 @@ public:
     bool operator>=(fixed_Point rhs) const;
     std::ostream& operator<< (const std::ostream& os )const;
     explicit operator float();
-    explicit operator int();
+    explicit operator int() const;
+//    explicit operator int() const
+//    {
+//        return (float)mQ /pow(2.f,rhb);
+//    }
     fixed_Point operator++();
     fixed_Point& operator++(int rhs);
     fixed_Point operator--();
