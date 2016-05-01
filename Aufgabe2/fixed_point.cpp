@@ -1,6 +1,7 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
+#include <cmath>
 #include "fixed_point.h"
 
 Fixed_Point::Fixed_Point(float n):mQ((int32_t)(n*0x10000))
@@ -136,3 +137,59 @@ Fixed_Point abs(Fixed_Point fp){
         fp.mQ =( fp.mQ^0xFFFFFFFF ) + 1;
     return fp;
 }
+
+Fixed_Point pow(Fixed_Point b, int16_t e)
+{
+    if(e == 0){
+        Fixed_Point fp(0x10000);
+        return fp;
+    }
+    Fixed_Point tmp = b;
+    for(unsigned i = 2; i <= abs(e); i++){
+        tmp = tmp * b;
+    }
+    if(e < 0){
+        Fixed_Point fp(0x10000);
+        return fp / tmp;
+    }
+    return tmp;
+}
+
+int factorial(int n)
+{
+    if (n == 0)
+       return 1;
+    return n * factorial(n - 1);
+}
+
+
+Fixed_Point sin(Fixed_Point fp)
+{
+    Fixed_Point tmp(0);
+    for( int i = 0; i <= 3; i++){
+        int32_t tmpSi = (std::pow(-1,i)*0x10000);
+        Fixed_Point si(tmpSi);
+        Fixed_Point divend = pow(fp, (2*i +1));
+        int32_t fac = factorial(2*i+1);
+        Fixed_Point divsor(fac*0x10000);
+        tmp = tmp + si * (divend/divsor);
+    }
+    return tmp;
+}
+
+Fixed_Point cos(Fixed_Point fp){
+    Fixed_Point tmp(0);
+    for( int i = 0; i <= 3; i++){
+        int32_t tmpSi = (std::pow(-1,i)*0x10000);
+        Fixed_Point si(tmpSi);
+        Fixed_Point divend = pow(fp, (2*i));
+        int32_t fac = factorial(2*i);
+        Fixed_Point divsor(fac*0x10000);
+        tmp = tmp + si * (divend/divsor);
+    }
+    return tmp;
+}
+
+
+
+

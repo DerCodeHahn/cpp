@@ -28,6 +28,10 @@ public:
     friend Fixed_Point abs(Fixed_Point fp);
     std::string toString() const;
     int32_t getQ() const;
+    friend Fixed_Point sin(Fixed_Point fp);
+    friend Fixed_Point cos(Fixed_Point fp);
+    friend Fixed_Point pow(Fixed_Point b, int16_t e);
+    friend int factorial(int n);
 private:
     int32_t mQ;
 };

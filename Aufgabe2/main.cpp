@@ -36,5 +36,22 @@ int main()
     float fout = (float)floater;
 
     cout<< floater <<" to float "<< fout << " to int "<< (int)floater <<endl;
+
+
+    Fixed_Point siner(2.0f);
+    siner = sin(siner);
+
+    cout << siner << " sin"<<endl;
+
+    Fixed_Point coser(2.0f);
+    coser = cos(coser);
+
+    cout << coser << " cos"<<endl;
+
+    Fixed_Point power(2.0f);
+    power = pow(power, 2);
+
+    cout << power << " pow"<<endl;
+
     return 0;
 }
