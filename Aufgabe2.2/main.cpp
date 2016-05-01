@@ -5,22 +5,21 @@ using namespace std;
 
 int main()
 {
-    float m = 5.0f;
-    float n = 2.0f;
     for (double var = -2; var < 2; var += 0.05f) {
-        Fixed_Point <16,16> fp((float)var);//
+        Fixed_Point <4,4> fp((float)var);//
         //fp = fp.getQ();
         cout << var <<":    \t "<< fp.toString()
              << "  \t" << (fp + 10).toString()
-             << "  \t" << (fp - 10).toString() << endl ;
+             << "  \t" << (fp - 10).toString()
+             <<"   \t" << (fp * -10).toString()<< endl ;
     }
 
     /*Fixed_Point fp2(n);
     Fixed_Point res = fp + fp2;
     Fixed_Point res2 = fp - fp2;
-    Fixed_Point res3 = fp * fp2;
-    Fixed_Point res4 = fp / fp2;
-    cout << fp <<" "<<fp2 <<endl;
+        Fixed_Point res3 = fp * fp2;
+        Fixed_Point res4 = fp / fp2;
+        cout << fp <<" "<<fp2 <<endl;
 
     cout << res << " " << res2 << " "
          << res3 << " "  << res4<< endl<<endl;

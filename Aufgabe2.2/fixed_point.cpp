@@ -15,13 +15,6 @@ Fixed_Point<lhb,rhb>::Fixed_Point(float n):mQ((type)(n*rhb))
 
 }
 
-
-
-//Fixed_Point::Fixed_Point(int32_t n):mQ(n )
-//{
-//}
-
-
 template<int lhb, int rhb>
 Fixed_Point<lhb,rhb>& Fixed_Point<lhb,rhb>::operator =(Fixed_Point const& rhs)
 {
@@ -46,13 +39,13 @@ Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator -(Fixed_Point<lhb,rhb>const 
     Fixed_Point<lhb,rhb> fp(tmp);
     return fp;
 }
-
-//Fixed_Point Fixed_Point::operator *(Fixed_Point rhs) const
-//{
-//    int64_t tmp = (int64_t)mQ * (int64_t)rhs.getQ();
-//    Fixed_Point fp((int32_t)(tmp/0x10000));
-//    return fp;
-//}
+template<int lhb, int rhb>
+Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator *(Fixed_Point<lhb,rhb>rhs) const
+{
+    nextType tmp = ((nextType)mQ) * ((nextType)rhs.getQ())*rhb;
+    Fixed_Point<lhb,rhb> fp((type)(tmp/rhb));
+    return fp;
+}
 
 //Fixed_Point Fixed_Point::operator /(Fixed_Point rhs) const
 //{

@@ -5,10 +5,15 @@
 #include <stdint.h>
 
 using type = int;
-template<int bitsize > struct smalestType { using type = int;};
-template<> struct smalestType<8> { using type = int8_t; };
-template<> struct smalestType<16> { using type = int16_t; };
-template<> struct smalestType<32> { using type = int32_t; };
+using nextType = int64_t;
+template<int bitsize > struct smalestType { using type = int;
+                                          using nextType = int64_t;};
+template<> struct smalestType<8> { using type = int8_t;
+                                   using nextType = int16_t;};
+template<> struct smalestType<16> { using type = int16_t;
+                                    using nextType = int32_t;};
+template<> struct smalestType<32> { using type = int32_t;
+                                    using nextType = int64_t;};
 template<> struct smalestType<64> { using type = int64_t; };
 
 
@@ -21,7 +26,7 @@ public:
     Fixed_Point& operator=(Fixed_Point const& rhs);
     Fixed_Point operator+(Fixed_Point rhs) const;
     Fixed_Point operator-(Fixed_Point rhs) const;
-//    Fixed_Point operator*(Fixed_Point rhs) const;
+    Fixed_Point operator*(Fixed_Point rhs) const;
 //    Fixed_Point operator/(Fixed_Point rhs) const;
 //    bool operator<(Fixed_Point rhs) const;
 //    bool operator>(Fixed_Point rhs) const;
