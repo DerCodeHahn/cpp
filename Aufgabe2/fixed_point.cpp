@@ -4,16 +4,20 @@
 #include <cmath>
 #include "fixed_point.h"
 
-Fixed_Point::Fixed_Point(float n):mQ((int32_t)(n*0x10000))
+fixed_point::fixed_point(float n):mQ((int32_t)(n*0x10000))
 {
 }
 
 
-Fixed_Point::Fixed_Point(int32_t n):mQ(n )
+fixed_point::fixed_point(int32_t n):mQ(n )
 {
 }
 
-Fixed_Point& Fixed_Point::operator =(Fixed_Point const& rhs)
+fixed_point fixed_point::operator -() const{
+    return fixed_point(-mQ);
+}
+
+fixed_point& fixed_point::operator =(fixed_point const& rhs)
 {
     if(this!= &rhs){
         mQ = rhs.getQ();
@@ -21,28 +25,28 @@ Fixed_Point& Fixed_Point::operator =(Fixed_Point const& rhs)
     return *this;
 }
 
-Fixed_Point Fixed_Point::operator +(Fixed_Point const rhs) const
+fixed_point fixed_point::operator +(fixed_point const rhs) const
 {
     int32_t tmp = mQ + rhs.getQ();
-    Fixed_Point fp(tmp);
+    fixed_point fp(tmp);
     return fp;
 }
 
-Fixed_Point Fixed_Point::operator -(Fixed_Point rhs) const
+fixed_point fixed_point::operator -(fixed_point rhs) const
 {
     int32_t tmp = mQ - rhs.getQ();
-    Fixed_Point fp(tmp);
+    fixed_point fp(tmp);
     return fp;
 }
 
-Fixed_Point Fixed_Point::operator *(Fixed_Point rhs) const
+fixed_point fixed_point::operator *(fixed_point rhs) const
 {
     int64_t tmp = (int64_t)mQ * (int64_t)rhs.getQ();
-    Fixed_Point fp((int32_t)(tmp/0x10000));
+    fixed_point fp((int32_t)(tmp/0x10000));
     return fp;
 }
 
-Fixed_Point Fixed_Point::operator /(Fixed_Point rhs) const
+fixed_point fixed_point::operator /(fixed_point rhs) const
 {
     int64_t tmp;
     int32_t a = mQ;
@@ -54,57 +58,83 @@ Fixed_Point Fixed_Point::operator /(Fixed_Point rhs) const
         tmp += b / 2;
     else
         tmp -= b / 2;
-    Fixed_Point fp((int32_t)(tmp / b));
+    fixed_point fp((int32_t)(tmp / b));
     return fp;
 }
 
-bool Fixed_Point::operator<(Fixed_Point rhs) const
+fixed_point& fixed_point::operator+=(fixed_point const& rhs){
+    mQ = mQ + rhs.getQ();
+    return  *this;
+}
+
+fixed_point& fixed_point::operator-=(fixed_point const& rhs){
+    mQ =  mQ - rhs.getQ();
+    return  *this;
+}
+
+fixed_point& fixed_point::operator*=(fixed_point const& rhs){
+    fixed_point i(mQ);
+    mQ = (i*rhs).getQ();
+    return  *this;
+}
+
+fixed_point& fixed_point::operator/=(fixed_point const& rhs){
+    fixed_point i(mQ);
+    mQ = (i/rhs).getQ();
+    return  *this;
+}
+
+bool fixed_point::operator<(fixed_point rhs) const
 {
     return mQ < rhs.getQ();
 }
-bool Fixed_Point::operator>(Fixed_Point rhs) const
+bool fixed_point::operator>(fixed_point rhs) const
 {
     return mQ > rhs.getQ();
 }
-bool Fixed_Point::operator==(Fixed_Point rhs) const
+bool fixed_point::operator==(fixed_point rhs) const
 {
     return mQ == rhs.getQ();
 }
-bool Fixed_Point::operator<=(Fixed_Point rhs) const
+bool fixed_point::operator!=(fixed_point rhs) const
+{
+    return mQ != rhs.getQ();
+}
+bool fixed_point::operator<=(fixed_point rhs) const
 {
     return mQ <= rhs.getQ();
 }
-bool Fixed_Point::operator>=(Fixed_Point rhs) const
+bool fixed_point::operator>=(fixed_point rhs) const
 {
     return mQ >= rhs.getQ();
 }
 
-Fixed_Point Fixed_Point:: operator ++()
+fixed_point fixed_point:: operator ++(int rhs)
 {
-    Fixed_Point temp = *this;
+    fixed_point temp = *this;
     mQ += 0x10000;
     return temp;
 }
 
-Fixed_Point& Fixed_Point:: operator ++(int rhs)
+fixed_point& fixed_point:: operator ++()
 {
     mQ += 0x10000;
     return *this;
 }
-Fixed_Point Fixed_Point:: operator --()
+fixed_point fixed_point:: operator --(int rhs)
 {
-    Fixed_Point temp = *this;
+    fixed_point temp = *this;
     mQ -= 0x10000;
     return temp;
 }
 
-Fixed_Point& Fixed_Point:: operator --(int rhs)
+fixed_point& fixed_point:: operator --()
 {
     mQ -= 0x10000;
     return *this;
 }
 
-std::string Fixed_Point::toString() const
+std::string fixed_point::toString() const
 {
     float ret = (float) mQ;
     ret /= 0x10000;
@@ -113,43 +143,43 @@ std::string Fixed_Point::toString() const
     return os.str();
 }
 
-int32_t Fixed_Point::getQ() const
+int32_t fixed_point::getQ() const
 {
     return mQ;
 }
 
-Fixed_Point::operator float(){
+fixed_point::operator float() const{
     return (float)mQ /0x10000;
 }
 
-//Fixed_Point::operator int(){
-//    return (int)mQ /0x10000;
-//}
+fixed_point::operator int() const{
+    return (int)mQ /0x10000;
+}
 
-std::ostream& Fixed_Point::operator<< ( std::ostream& os )const
+std::ostream& fixed_point::operator<< ( std::ostream& os )const
 {
     os << float(mQ);
     return os;
 }
 
-Fixed_Point abs(Fixed_Point fp){
+fixed_point abs(fixed_point fp){
     if(fp.mQ < 0 )
         fp.mQ =( fp.mQ^0xFFFFFFFF ) + 1;
     return fp;
 }
 
-Fixed_Point pow(Fixed_Point b, int16_t e)
+fixed_point pow(fixed_point b, int16_t e)
 {
     if(e == 0){
-        Fixed_Point fp(0x10000);
+        fixed_point fp(0x10000);
         return fp;
     }
-    Fixed_Point tmp = b;
+    fixed_point tmp = b;
     for(unsigned i = 2; i <= abs(e); i++){
         tmp = tmp * b;
     }
     if(e < 0){
-        Fixed_Point fp(0x10000);
+        fixed_point fp(0x10000);
         return fp / tmp;
     }
     return tmp;
@@ -163,28 +193,28 @@ int factorial(int n)
 }
 
 
-Fixed_Point sin(Fixed_Point fp)
+fixed_point sin(fixed_point fp)
 {
-    Fixed_Point tmp(0);
+    fixed_point tmp(0);
     for( int i = 0; i <= 3; i++){
         int32_t tmpSi = (std::pow(-1,i)*0x10000);
-        Fixed_Point si(tmpSi);
-        Fixed_Point divend = pow(fp, (2*i +1));
+        fixed_point si(tmpSi);
+        fixed_point divend = pow(fp, (2*i +1));
         int32_t fac = factorial(2*i+1);
-        Fixed_Point divsor(fac*0x10000);
+        fixed_point divsor(fac*0x10000);
         tmp = tmp + si * (divend/divsor);
     }
     return tmp;
 }
 
-Fixed_Point cos(Fixed_Point fp){
-    Fixed_Point tmp(0);
+fixed_point cos(fixed_point fp){
+    fixed_point tmp(0);
     for( int i = 0; i <= 3; i++){
         int32_t tmpSi = (std::pow(-1,i)*0x10000);
-        Fixed_Point si(tmpSi);
-        Fixed_Point divend = pow(fp, (2*i));
+        fixed_point si(tmpSi);
+        fixed_point divend = pow(fp, (2*i));
         int32_t fac = factorial(2*i);
-        Fixed_Point divsor(fac*0x10000);
+        fixed_point divsor(fac*0x10000);
         tmp = tmp + si * (divend/divsor);
     }
     return tmp;

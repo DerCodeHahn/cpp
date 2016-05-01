@@ -4,33 +4,40 @@
 #include <string>
 #include <stdint.h>
 
-class Fixed_Point{
+class fixed_point{
 public:
-    Fixed_Point(float n=0.0f);
-    Fixed_Point(int32_t n=0);
-    Fixed_Point& operator=(Fixed_Point const& rhs);
-    Fixed_Point operator+(Fixed_Point rhs) const;
-    Fixed_Point operator-(Fixed_Point rhs) const;
-    Fixed_Point operator*(Fixed_Point rhs) const;
-    Fixed_Point operator/(Fixed_Point rhs) const;
-    bool operator<(Fixed_Point rhs) const;
-    bool operator>(Fixed_Point rhs) const;
-    bool operator==(Fixed_Point rhs) const;
-    bool operator<=(Fixed_Point rhs) const;
-    bool operator>=(Fixed_Point rhs) const;
+    fixed_point(float n=0.0f);
+    fixed_point(int32_t n=0);
+    fixed_point operator -() const;
+    fixed_point& operator=(fixed_point const& rhs);
+    fixed_point operator+(fixed_point rhs) const;
+    fixed_point operator-(fixed_point rhs) const;
+    fixed_point operator*(fixed_point rhs) const;
+    fixed_point operator/(fixed_point rhs) const;
+    fixed_point& operator+=(fixed_point const& rhs);
+    fixed_point& operator-=(fixed_point const& rhs);
+    fixed_point& operator*=(fixed_point const& rhs);
+    fixed_point& operator/=(fixed_point const& rhs);
+    bool operator<(fixed_point rhs) const;
+    bool operator>(fixed_point rhs) const;
+    bool operator==(fixed_point rhs) const;
+    bool operator!=(fixed_point rhs) const;
+    bool operator<=(fixed_point rhs) const;
+    bool operator>=(fixed_point rhs) const;
     std::ostream& operator<< ( std::ostream& os )const;
-    operator float();
+    explicit operator float() const;
+    explicit operator int() const;
 //    operator int();
-    Fixed_Point operator++();
-    Fixed_Point& operator++(int rhs);
-    Fixed_Point operator--();
-    Fixed_Point& operator--(int rhs);
-    friend Fixed_Point abs(Fixed_Point fp);
+    fixed_point operator++(int rhs);
+    fixed_point& operator++();
+    fixed_point operator--(int rhs);
+    fixed_point& operator--();
+    friend fixed_point abs(fixed_point fp);
     std::string toString() const;
     int32_t getQ() const;
-    friend Fixed_Point sin(Fixed_Point fp);
-    friend Fixed_Point cos(Fixed_Point fp);
-    friend Fixed_Point pow(Fixed_Point b, int16_t e);
+    friend fixed_point sin(fixed_point fp);
+    friend fixed_point cos(fixed_point fp);
+    friend fixed_point pow(fixed_point b, int16_t e);
     friend int factorial(int n);
 private:
     int32_t mQ;
