@@ -48,10 +48,53 @@ public:
     fixed_Point& operator--(int rhs);
     std::string toString() const;
     type getQ() const;
-    friend fixed_Point abs(fixed_Point fp);
-    friend fixed_Point sin(fixed_Point fp);
-    friend fixed_Point cos(fixed_Point fp);
-    friend fixed_Point pow(fixed_Point b, int16_t e);
+    friend fixed_Point abs(fixed_Point<lhb,rhb> fp){
+        if(fp.mQ < 0 )
+            fp.mQ =( fp.mQ^(type)(pow(2, lhb+rhb+1)-1) ) + 1;
+        return fp;
+    };
+    friend fixed_Point sin(fixed_Point<lhb,rhb> fp)
+    {
+        fixed_Point<lhb,rhb> tmp(0);
+        for( int i = 0; i <= 3; i++){
+            type tmpSi = (std::pow(-1,i)*pow(2,rhb));
+            fixed_Point<lhb,rhb> si(tmpSi);
+            fixed_Point<lhb,rhb> divend = pow(fp, (2*i +1));
+            type fac = factorial(2*i+1);
+            fixed_Point<lhb,rhb> divsor(fac*(type)pow(2,rhb));
+            tmp = tmp + si * (divend/divsor);
+        }
+        return tmp;
+    }
+    friend fixed_Point cos(fixed_Point<lhb,rhb> fp){
+        fixed_Point<lhb,rhb> tmp(0);
+        for( int i = 0; i <= 3; i++){
+            type tmpSi = (std::pow(-1,i)*pow(2,rhb));
+            fixed_Point<lhb,rhb> si(tmpSi);
+            fixed_Point<lhb,rhb> divend = pow(fp, (2*i));
+            type fac = factorial(2*i);
+            fixed_Point<lhb,rhb> divsor(fac*(type)pow(2,rhb));
+            tmp = tmp + si * (divend/divsor);
+        }
+        return tmp;
+    }
+    friend fixed_Point pow(fixed_Point<lhb,rhb> b, int16_t e)
+    {
+        if(e == 0){
+            fixed_Point<lhb,rhb> fp((float)pow(2,rhb));
+            return fp;
+        }
+        fixed_Point<lhb,rhb> tmp = b;
+        for(unsigned i = 2; i <= abs(e); i++){
+            tmp = tmp * b;
+        }
+        if(e < 0){
+            fixed_Point<lhb,rhb> fp((float)pow(2,rhb));
+            return fp / tmp;
+        }
+        return tmp;
+    }
+;
     friend int factorial(int n);
 private:
     type mQ;
