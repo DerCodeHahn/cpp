@@ -151,7 +151,7 @@ fixed_Point<lhb,rhb>::operator int()const{
 
 
 
-template<int lhb, int rhb>
+template<const int lhb,const int rhb>
 fixed_Point<lhb,rhb> abs(fixed_Point<lhb,rhb> fp){
     if(fp.mQ < 0 )
         fp.mQ =( fp.mQ^(pow(2, lhb+rhb+1)-1) ) + 1;
