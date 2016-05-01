@@ -4,6 +4,12 @@
 #include <cmath>
 #include "fixed_point.h"
 
+int factorial(int n)
+{
+    if (n == 0)
+       return 1;
+    return n * factorial(n - 1);
+}
 
 
 template<int lhb, int rhb>
@@ -167,4 +173,50 @@ template<int lhb, int rhb>
 fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator -() const
 {
     return fixed_Point(-mQ);
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> cos(fixed_Point<lhb,rhb> fp){
+    fixed_point tmp(0);
+    for( int i = 0; i <= 3; i++){
+        int32_t tmpSi = (std::pow(-1,i)*pow(2,rhb));
+        fixed_point si(tmpSi);
+        fixed_point divend = pow(fp, (2*i));
+        int32_t fac = factorial(2*i);
+        fixed_point divsor(fac*pow(2,rhb));
+        tmp = tmp + si * (divend/divsor);
+    }
+    return tmp;
+}
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> sin(fixed_Point<lhb,rhb> fp)
+{
+    fixed_point tmp(0);
+    for( int i = 0; i <= 3; i++){
+        int32_t tmpSi = (std::pow(-1,i)*pow(2,rhb));
+        fixed_point si(tmpSi);
+        fixed_point divend = pow(fp, (2*i +1));
+        int32_t fac = factorial(2*i+1);
+        fixed_point divsor(fac*pow(2,rhb));
+        tmp = tmp + si * (divend/divsor);
+    }
+    return tmp;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> pow(fixed_Point<lhb,rhb> b, int16_t e)
+{
+    if(e == 0){
+        fixed_point fp(pow(2,rhb));
+        return fp;
+    }
+    fixed_point tmp = b;
+    for(unsigned i = 2; i <= abs(e); i++){
+        tmp = tmp * b;
+    }
+    if(e < 0){
+        fixed_point fp(pow(2,rhb));
+        return fp / tmp;
+    }
+    return tmp;
 }

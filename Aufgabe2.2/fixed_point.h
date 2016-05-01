@@ -49,7 +49,10 @@ public:
     std::string toString() const;
     type getQ() const;
     friend fixed_Point abs(fixed_Point fp);
-
+    friend fixed_Point sin(fixed_Point fp);
+    friend fixed_Point cos(fixed_Point fp);
+    friend fixed_Point pow(fixed_Point b, int16_t e);
+    friend int factorial(int n);
 private:
     type mQ;
 };
