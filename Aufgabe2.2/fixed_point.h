@@ -15,11 +15,12 @@ template<> struct smalestType<64> { using type = int64_t; };
 template<int lhb, int rhb>
 class Fixed_Point{
 public:
-    Fixed_Point(int number);
+    //Fixed_Point(int number);
     Fixed_Point(float n);
+    Fixed_Point(type n);
     Fixed_Point& operator=(Fixed_Point const& rhs);
     Fixed_Point operator+(Fixed_Point rhs) const;
-//    Fixed_Point operator-(Fixed_Point rhs) const;
+    Fixed_Point operator-(Fixed_Point rhs) const;
 //    Fixed_Point operator*(Fixed_Point rhs) const;
 //    Fixed_Point operator/(Fixed_Point rhs) const;
 //    bool operator<(Fixed_Point rhs) const;

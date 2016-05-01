@@ -5,7 +5,7 @@
 
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::Fixed_Point(int number):mQ((type)(number * rhb)){
+Fixed_Point<lhb,rhb>::Fixed_Point(type number):mQ(number){
 
 }
 
@@ -34,17 +34,18 @@ Fixed_Point<lhb,rhb>& Fixed_Point<lhb,rhb>::operator =(Fixed_Point const& rhs)
 template<int lhb, int rhb>
 Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator +(Fixed_Point<lhb,rhb> const rhs) const
 {
-    type tmp = mQ + rhs.getQ();
-    Fixed_Point fp(tmp);
+    type tmp = mQ + rhs.getQ()*rhb;
+    Fixed_Point<lhb,rhb> fp(tmp);
     return fp;
 }
 
-//Fixed_Point Fixed_Point::operator -(Fixed_Point rhs) const
-//{
-//    int32_t tmp = mQ - rhs.getQ();
-//    Fixed_Point fp(tmp);
-//    return fp;
-//}
+template<int lhb, int rhb>
+Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator -(Fixed_Point<lhb,rhb>const rhs) const
+{
+    type tmp = mQ - rhs.getQ()*rhb;
+    Fixed_Point<lhb,rhb> fp(tmp);
+    return fp;
+}
 
 //Fixed_Point Fixed_Point::operator *(Fixed_Point rhs) const
 //{

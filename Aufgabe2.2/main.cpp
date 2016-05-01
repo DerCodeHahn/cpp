@@ -8,9 +8,11 @@ int main()
     float m = 5.0f;
     float n = 2.0f;
     for (double var = -2; var < 2; var += 0.05f) {
-        Fixed_Point <8,8> fp((float)var);//
+        Fixed_Point <16,16> fp((float)var);//
         //fp = fp.getQ();
-        cout << var <<":    \t "<< fp.toString() << " " << fp.getQ() << endl ;
+        cout << var <<":    \t "<< fp.toString()
+             << "  \t" << (fp + 10).toString()
+             << "  \t" << (fp - 10).toString() << endl ;
     }
 
     /*Fixed_Point fp2(n);
