@@ -142,7 +142,8 @@ compiler_clean:
 
 ####### Compile
 
-release\main.obj: ..\..\Aufgabe2.2\main.cpp ..\..\Aufgabe2.2\fixed_Point.h
+release\main.obj: ..\..\Aufgabe2.2\main.cpp ..\..\Aufgabe2.2\fixed_Point.cpp \
+		..\..\Aufgabe2.2\fixed_Point.h
 
 release\fixed_point.obj: ..\..\Aufgabe2.2\fixed_point.cpp ..\..\Aufgabe2.2\fixed_Point.h
 

@@ -17,7 +17,7 @@ template<> struct smalestType<32> { using type = int32_t;
 template<> struct smalestType<64> { using type = int64_t; };
 
 
-template<int lhb, int rhb>
+template<const int lhb,const int rhb>
 class fixed_Point{
 public:
     //fixed_Point(int number);

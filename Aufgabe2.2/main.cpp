@@ -1,5 +1,3 @@
-
-
 #include "fixed_point.cpp"
 
 #include <iostream>
