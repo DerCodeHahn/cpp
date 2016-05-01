@@ -1,22 +1,24 @@
 #include <string>
 #include <sstream>
 #include <stdint.h>
-#include "fixed_point.h"
+#include <cmath>
+#include "fixed_Point.h"
+
 
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::Fixed_Point(type number):mQ(number){
+fixed_Point<lhb,rhb>::fixed_Point(type number):mQ(number){
 
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::Fixed_Point(float n):mQ((type)(n*rhb))
+fixed_Point<lhb,rhb>::fixed_Point(float n):mQ((type)(n*pow(2,rhb)))
 {
 
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>& Fixed_Point<lhb,rhb>::operator =(Fixed_Point const& rhs)
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator =(fixed_Point const& rhs)
 {
     if(this!= &rhs){
         mQ = rhs.getQ();
@@ -25,29 +27,29 @@ Fixed_Point<lhb,rhb>& Fixed_Point<lhb,rhb>::operator =(Fixed_Point const& rhs)
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator +(Fixed_Point<lhb,rhb> const rhs) const
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator+(fixed_Point<lhb,rhb> const rhs) const
 {
-    type tmp = mQ + rhs.getQ()*rhb;
-    Fixed_Point<lhb,rhb> fp(tmp);
+    type tmp = mQ + rhs.getQ();
+    fixed_Point<lhb,rhb> fp(tmp);
     return fp;
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator -(Fixed_Point<lhb,rhb>const rhs) const
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator -(fixed_Point<lhb,rhb>const rhs) const
 {
-    type tmp = mQ - rhs.getQ()*rhb;
-    Fixed_Point<lhb,rhb> fp(tmp);
+    type tmp = mQ - rhs.getQ();
+    fixed_Point<lhb,rhb> fp(tmp);
     return fp;
 }
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator *(Fixed_Point<lhb,rhb>rhs) const
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator *(fixed_Point<lhb,rhb>rhs) const
 {
-    nextType tmp = ((nextType)mQ) * ((nextType)rhs.getQ())*rhb;
-    Fixed_Point<lhb,rhb> fp((type)(tmp/rhb));
+    nextType tmp = (nextType)mQ * ((nextType)rhs.mQ);
+    fixed_Point<lhb,rhb> fp((type)(tmp /  pow(2,rhb)));
     return fp;
 }
 
-//Fixed_Point Fixed_Point::operator /(Fixed_Point rhs) const
+//fixed_Point fixed_Point::operator /(fixed_Point rhs) const
 //{
 //    int64_t tmp;
 //    int32_t a = mQ;
@@ -59,89 +61,98 @@ Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator *(Fixed_Point<lhb,rhb>rhs) c
 //        tmp += b / 2;
 //    else
 //        tmp -= b / 2;
-//    Fixed_Point fp((int32_t)(tmp / b));
+//    fixed_Point fp((int32_t)(tmp / b));
 //    return fp;
 //}
-
-//bool Fixed_Point::operator<(Fixed_Point rhs) const
-//{
-//    return mQ < rhs.getQ();
-//}
-//bool Fixed_Point::operator>(Fixed_Point rhs) const
-//{
-//    return mQ > rhs.getQ();
-//}
-//bool Fixed_Point::operator==(Fixed_Point rhs) const
-//{
-//    return mQ == rhs.getQ();
-//}
-//bool Fixed_Point::operator<=(Fixed_Point rhs) const
-//{
-//    return mQ <= rhs.getQ();
-//}
-//bool Fixed_Point::operator>=(Fixed_Point rhs) const
-//{
-//    return mQ >= rhs.getQ();
-//}
-
-//Fixed_Point Fixed_Point:: operator ++()
-//{
-//    Fixed_Point temp = *this;
-//    mQ += 0x10000;
-//    return temp;
-//}
-
-//Fixed_Point& Fixed_Point:: operator ++(int rhs)
-//{
-//    mQ += 0x10000;
-//    return *this;
-//}
-//Fixed_Point Fixed_Point:: operator --()
-//{
-//    Fixed_Point temp = *this;
-//    mQ -= 0x10000;
-//    return temp;
-//}
-
-//Fixed_Point& Fixed_Point:: operator --(int rhs)
-//{
-//    mQ -= 0x10000;
-//    return *this;
-//}
+template<int lhb, int rhb>
+bool fixed_Point<lhb,rhb>::operator<(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ < rhs.getQ();
+}
 
 template<int lhb, int rhb>
-std::string Fixed_Point<lhb,rhb>::toString() const
+bool fixed_Point<lhb,rhb>::operator>(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ > rhs.getQ();
+}
+
+template<int lhb, int rhb>
+bool fixed_Point<lhb,rhb>::operator==(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ == rhs.getQ();
+}
+
+template<int lhb, int rhb>
+bool fixed_Point<lhb,rhb>::operator<=(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ <= rhs.getQ();
+}
+
+template<int lhb, int rhb>
+bool fixed_Point<lhb,rhb>::operator>=(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ >= rhs.getQ();
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator++()
+{
+    fixed_Point temp = *this;
+    mQ += pow(2,rhb);
+    return temp;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator++(int rhs)
+{
+    mQ += pow(2,rhb);
+    return *this;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator --()
+{
+    fixed_Point temp = *this;
+    mQ -= pow(2,rhb);
+    return temp;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>:: operator --(int rhs)
+{
+    mQ -= pow(2,rhb);
+    return *this;
+}
+
+template<int lhb, int rhb>
+std::string fixed_Point<lhb,rhb>::toString() const
 {
     float ret = (float) mQ;
-    ret /= rhb;
+    ret /= pow(2,rhb);
     std::ostringstream os ;
     os << ret;
     return os.str();
 }
 template<int lhb, int rhb>
-type Fixed_Point<lhb,rhb>::getQ() const
+type fixed_Point<lhb,rhb>::getQ() const
 {
     return mQ;
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::operator float(){
-    return ((float)mQ) /rhb;
+fixed_Point<lhb,rhb>::operator float(){
+    return ((float)mQ) /pow(2,rhb);
 }
 
-//Fixed_Point::operator int(){
-//    return (int)mQ /0x10000;
-//}
-
-template<int lhb, int rhb>
-std::ostream& Fixed_Point<lhb,rhb>::operator<< ( std::ostream& os )const
-{
-    os << float(mQ);
-    return os;
+template<const int lhb,const int rhb>
+fixed_Point<lhb,rhb>::operator int()const{
+    return (int)mQ /pow(2,rhb);
 }
 
-//Fixed_Point abs(Fixed_Point fp){
-//    if(fp.mQ < 0 )
-//        fp.mQ =( fp.mQ^0xFFFFFFFF ) + 1;
-//    return fp;
-//}
+
+
+fixed_Point abs(fixed_Point fp){
+    if(fp.mQ < 0 )
+        fp.mQ =( fp.mQ^0xFFFFFFFF ) + 1;
+    return fp;
+}
