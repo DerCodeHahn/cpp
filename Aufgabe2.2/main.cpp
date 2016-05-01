@@ -45,7 +45,7 @@ std::ostream& operator<< ( std::ostream& os , fixed_Point<lhb, rhb> const& f )
 int main()
 {
     const int rhb = 10;
-    const int lhb = 22;
+    const int lhb = 20;
 
     typedef fixed_Point<rhb, lhb> fixed_Point_def;
 
@@ -94,6 +94,10 @@ int main()
     // trigonometric functions
     EXPECT_CLOSE( fixed_Point_def(std::sin(0.5f)) , sin(fixed_Point_def(0.5f)) , fixed_Point_def(0.01f) );
     EXPECT_CLOSE( fixed_Point_def(std::cos(0.5f)) , cos(fixed_Point_def(0.5f)) , fixed_Point_def(0.01f) );
+
+    fixed_Point<8,2> test(16);
+    fixed_Point<40,2> test2(16);
+
     return 0;
 }
 

@@ -14,7 +14,9 @@ int factorial(int n)
 
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb>::fixed_Point(type number):mQ(number){
-
+    const int nextPow = round_up_pow2<lhb+rhb,4>::value;
+    using type = typename smalestType<nextPow>::type;
+    std::cout<<"Bits: "<<sizeof(type)*8<<std::endl;
 }
 
 template<int lhb, int rhb>
@@ -204,4 +206,9 @@ fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator -() const
     return fixed_Point<lhb,rhb>(-mQ);
 }
 
+template<int lhb, int rhb>
+int fixed_Point<lhb,rhb>:: getBitCount(){
+
+    return sizeof(type)*8;
+}
 

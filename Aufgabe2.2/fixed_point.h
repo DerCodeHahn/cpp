@@ -18,12 +18,22 @@ template<> struct smalestType<32> { using type = int32_t;
 template<> struct smalestType<64> { using type = int64_t; };
 
 
+template<const int n, int power >struct round_up_pow2
+{
+    constexpr static int roundUp(int n, int power) {
+      return (power>=n)? power : roundUp(n,power*2);
+    }
+    static const int value = roundUp(n,power);
+};
+
+
 template<const int lhb,const int rhb>
 class fixed_Point{
 public:
     //fixed_Point(int number);
     explicit fixed_Point(float n);
     explicit fixed_Point(type n);
+    int getBitCount();
     fixed_Point operator -() const;
     fixed_Point& operator=(fixed_Point const& rhs);
     fixed_Point operator+(fixed_Point rhs) const;
