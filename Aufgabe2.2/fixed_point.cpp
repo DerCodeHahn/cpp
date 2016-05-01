@@ -71,6 +71,37 @@ fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator *(fixed_Point<lhb,rhb>rhs) c
 //    return fp;
 //}
 template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator +=(fixed_Point const& rhs)
+{
+    mQ = mQ + rhs.getQ();
+    return *this;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator -=(fixed_Point const& rhs)
+{
+    mQ = mQ - rhs.getQ();
+    return *this;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator *=(fixed_Point const& rhs)
+{
+    fixed_Point tmp(mQ);
+    mQ =(tmp * rhs).getQ();
+    return *this;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator /=(fixed_Point const& rhs)
+{
+    fixed_Point tmp(mQ);
+    mQ =(tmp / rhs).getQ();
+    return *this;
+}
+
+
+template<int lhb, int rhb>
 bool fixed_Point<lhb,rhb>::operator<(fixed_Point<lhb,rhb> rhs) const
 {
     return mQ < rhs.getQ();
