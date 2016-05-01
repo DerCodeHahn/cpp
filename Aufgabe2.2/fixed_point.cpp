@@ -5,35 +5,39 @@
 
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::Fixed_Point(int number):mQ((type)(number*0x1 * rhb)){
+Fixed_Point<lhb,rhb>::Fixed_Point(int number):mQ((type)(number * rhb)){
 
 }
 
 template<int lhb, int rhb>
-Fixed_Point<lhb,rhb>::Fixed_Point(float n):mQ((type)(n*0x1*rhb))
+Fixed_Point<lhb,rhb>::Fixed_Point(float n):mQ((type)(n*rhb))
 {
 
 }
+
 
 
 //Fixed_Point::Fixed_Point(int32_t n):mQ(n )
 //{
 //}
 
-//Fixed_Point& Fixed_Point::operator =(Fixed_Point const& rhs)
-//{
-//    if(this!= &rhs){
-//        mQ = rhs.getQ();
-//    }
-//    return *this;
-//}
 
-//Fixed_Point Fixed_Point::operator +(Fixed_Point const rhs) const
-//{
-//    int32_t tmp = mQ + rhs.getQ();
-//    Fixed_Point fp(tmp);
-//    return fp;
-//}
+template<int lhb, int rhb>
+Fixed_Point<lhb,rhb>& Fixed_Point<lhb,rhb>::operator =(Fixed_Point const& rhs)
+{
+    if(this!= &rhs){
+        mQ = rhs.getQ();
+    }
+    return *this;
+}
+
+template<int lhb, int rhb>
+Fixed_Point<lhb,rhb> Fixed_Point<lhb,rhb>::operator +(Fixed_Point<lhb,rhb> const rhs) const
+{
+    type tmp = mQ + rhs.getQ();
+    Fixed_Point fp(tmp);
+    return fp;
+}
 
 //Fixed_Point Fixed_Point::operator -(Fixed_Point rhs) const
 //{
@@ -110,28 +114,30 @@ Fixed_Point<lhb,rhb>::Fixed_Point(float n):mQ((type)(n*0x1*rhb))
 //    mQ -= 0x10000;
 //    return *this;
 //}
+
 template<int lhb, int rhb>
 std::string Fixed_Point<lhb,rhb>::toString() const
 {
     float ret = (float) mQ;
-    ret /= 0x1*rhb;
+    ret /= rhb;
     std::ostringstream os ;
     os << ret;
     return os.str();
 }
+template<int lhb, int rhb>
+type Fixed_Point<lhb,rhb>::getQ() const
+{
+    return mQ;
+}
 
-//int32_t Fixed_Point::getQ() const
-//{
-//    return mQ;
+template<int lhb, int rhb>
+Fixed_Point<lhb,rhb>::operator float(){
+    return ((float)mQ) /rhb;
+}
+
+//Fixed_Point::operator int(){
+//    return (int)mQ /0x10000;
 //}
-
-//Fixed_Point::operator float(){
-//    return (float)mQ /0x10000;
-//}
-
-////Fixed_Point::operator int(){
-////    return (int)mQ /0x10000;
-////}
 
 template<int lhb, int rhb>
 std::ostream& Fixed_Point<lhb,rhb>::operator<< ( std::ostream& os )const

@@ -7,9 +7,10 @@ int main()
 {
     float m = 5.0f;
     float n = 2.0f;
-    for (float var = 0; var < 2.5; var += 0.1f) {
-        Fixed_Point <4,60> fp(var);//
-        cout << var <<": "<< fp.toString() << endl ;
+    for (double var = -2; var < 2; var += 0.05f) {
+        Fixed_Point <8,8> fp((float)var);//
+        //fp = fp.getQ();
+        cout << var <<":    \t "<< fp.toString() << " " << fp.getQ() << endl ;
     }
 
     /*Fixed_Point fp2(n);
