@@ -1,6 +1,4 @@
-
-
-#include "fixed_Point.cpp"
+#include "fixed_point.cpp"
 
 #include <iostream>
 #include <cassert>

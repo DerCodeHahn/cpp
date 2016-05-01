@@ -2,7 +2,7 @@
 #include <sstream>
 #include <stdint.h>
 #include <cmath>
-#include "fixed_Point.h"
+#include "fixed_point.h"
 
 
 
@@ -83,6 +83,12 @@ bool fixed_Point<lhb,rhb>::operator==(fixed_Point<lhb,rhb> rhs) const
 }
 
 template<int lhb, int rhb>
+bool fixed_Point<lhb,rhb>::operator!=(fixed_Point<lhb,rhb> rhs) const
+{
+    return mQ != rhs.getQ();
+}
+
+template<int lhb, int rhb>
 bool fixed_Point<lhb,rhb>::operator<=(fixed_Point<lhb,rhb> rhs) const
 {
     return mQ <= rhs.getQ();
@@ -139,16 +145,15 @@ type fixed_Point<lhb,rhb>::getQ() const
     return mQ;
 }
 
-template<const int lhb,const  int rhb>
-fixed_Point<lhb,rhb>::operator float(){
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb>::operator float() const{
     return ((float)mQ) /pow(2,rhb);
 }
 
-template<const int lhb,const int rhb>
-fixed_Point<lhb,rhb>::operator int()const{
+template<int lhb,int rhb>
+fixed_Point<lhb,rhb>::operator int() const{
     return (int)mQ /pow(2,rhb);
 }
-
 
 
 template<const int lhb,const int rhb>
@@ -156,4 +161,10 @@ fixed_Point<lhb,rhb> abs(fixed_Point<lhb,rhb> fp){
     if(fp.mQ < 0 )
         fp.mQ =( fp.mQ^(pow(2, lhb+rhb+1)-1) ) + 1;
     return fp;
+}
+
+template<int lhb, int rhb>
+fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator -() const
+{
+    return fixed_Point(-mQ);
 }

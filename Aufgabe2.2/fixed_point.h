@@ -23,23 +23,25 @@ public:
     //fixed_Point(int number);
     explicit fixed_Point(float n);
     explicit fixed_Point(type n);
+    fixed_Point operator -() const;
     fixed_Point& operator=(fixed_Point const& rhs);
     fixed_Point operator+(fixed_Point rhs) const;
     fixed_Point operator-(fixed_Point rhs) const;
     fixed_Point operator*(fixed_Point rhs) const;
     fixed_Point operator/(fixed_Point rhs) const;
+    fixed_Point& operator+=(fixed_Point const& rhs);
+    fixed_Point& operator-=(fixed_Point const& rhs);
+    fixed_Point& operator*=(fixed_Point const& rhs);
+    fixed_Point& operator/=(fixed_Point const& rhs);
     bool operator<(fixed_Point rhs) const;
     bool operator>(fixed_Point rhs) const;
     bool operator==(fixed_Point rhs) const;
+    bool operator!=(fixed_Point rhs) const;
     bool operator<=(fixed_Point rhs) const;
     bool operator>=(fixed_Point rhs) const;
     std::ostream& operator<< (const std::ostream& os )const;
-    explicit operator float();
+    explicit operator float() const;
     explicit operator int() const;
-//    explicit operator int() const
-//    {
-//        return (float)mQ /pow(2.f,rhb);
-//    }
     fixed_Point operator++();
     fixed_Point& operator++(int rhs);
     fixed_Point operator--();
