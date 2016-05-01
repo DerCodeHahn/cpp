@@ -143,31 +143,31 @@ bool fixed_Point<lhb,rhb>::operator>=(fixed_Point<lhb,rhb> rhs) const
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>::operator++()
 {
-    fixed_Point temp = *this;
     mQ += pow(2,rhb);
-    return temp;
+    return *this;
 }
 
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>::operator++(int rhs)
 {
+    fixed_Point temp = *this;
     mQ += pow(2,rhb);
-    return *this;
+    return temp;
 }
 
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator --()
 {
-    fixed_Point temp = *this;
     mQ -= pow(2,rhb);
-    return temp;
+    return *this;
 }
 
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb>& fixed_Point<lhb,rhb>:: operator --(int rhs)
 {
+    fixed_Point temp = *this;
     mQ -= pow(2,rhb);
-    return *this;
+    return temp;
 }
 
 template<int lhb, int rhb>

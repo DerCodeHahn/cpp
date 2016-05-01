@@ -3,6 +3,7 @@
 
 #include <string>
 #include <stdint.h>
+#include <cmath>
 
 using type = int;
 using nextType = int64_t;
@@ -49,8 +50,9 @@ public:
     std::string toString() const;
     type getQ() const;
     friend fixed_Point abs(fixed_Point<lhb,rhb> fp){
+        //std::cout<<pow(2,lhb+rhb)-1 << " " << std::endl;
         if(fp.mQ < 0 )
-            fp.mQ =( fp.mQ^(type)(pow(2, lhb+rhb+1)-1) ) + 1;
+            fp = -fp;
         return fp;
     };
     friend fixed_Point sin(fixed_Point<lhb,rhb> fp)
@@ -61,22 +63,18 @@ public:
             fixed_Point<lhb,rhb> si(tmpSi);
             fixed_Point<lhb,rhb> divend = pow(fp, (2*i +1));
             type fac = factorial(2*i+1);
-            fixed_Point<lhb,rhb> divsor(fac*(type)pow(2,rhb));
+            fixed_Point<lhb,rhb> divsor(fac*(type)std::pow(2,rhb));
             tmp = tmp + si * (divend/divsor);
         }
         return tmp;
     }
     friend fixed_Point cos(fixed_Point<lhb,rhb> fp){
-        fixed_Point<lhb,rhb> tmp(0);
-        for( int i = 0; i <= 3; i++){
-            type tmpSi = (std::pow(-1,i)*pow(2,rhb));
-            fixed_Point<lhb,rhb> si(tmpSi);
-            fixed_Point<lhb,rhb> divend = pow(fp, (2*i));
-            type fac = factorial(2*i);
-            fixed_Point<lhb,rhb> divsor(fac*(type)pow(2,rhb));
-            tmp = tmp + si * (divend/divsor);
-        }
-        return tmp;
+        return fixed_Point<lhb,rhb>(1.f)
+            - fixed_Point<lhb,rhb>(1.f/2.f) * fp * fp
+            + fixed_Point<lhb,rhb>(1.f/24.f) * fp * fp * fp * fp
+            - fixed_Point<lhb,rhb>(1.f/720.f) * fp * fp * fp * fp * fp * fp;
+//        std::cout << tmp;
+//        return tmp;
     }
     friend fixed_Point pow(fixed_Point<lhb,rhb> b, int16_t e)
     {
@@ -94,7 +92,6 @@ public:
         }
         return tmp;
     }
-;
     friend int factorial(int n);
 private:
     type mQ;
