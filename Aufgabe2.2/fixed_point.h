@@ -5,7 +5,6 @@
 #include <stdint.h>
 #include <cmath>
 
-using type = int;
 using nextType = int64_t;
 template<int bitsize > struct smalestType { using type = int;
                                           using nextType = int64_t;};
@@ -30,6 +29,8 @@ template<const int n, int power >struct round_up_pow2
 template<const int lhb,const int rhb>
 class fixed_Point{
 public:
+    const static int nextPow = round_up_pow2<lhb+rhb,1>::value;
+    using type = typename smalestType<nextPow>::type;
     //fixed_Point(int number);
     explicit fixed_Point(float n);
     explicit fixed_Point(type n);

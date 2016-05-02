@@ -14,9 +14,6 @@ int factorial(int n)
 
 template<int lhb, int rhb>
 fixed_Point<lhb,rhb>::fixed_Point(type number):mQ(number){
-    const int nextPow = round_up_pow2<lhb+rhb,4>::value;
-    using type = typename smalestType<nextPow>::type;
-    std::cout<<"Bits: "<<sizeof(type)*8<<std::endl;
 }
 
 template<int lhb, int rhb>
@@ -181,8 +178,9 @@ std::string fixed_Point<lhb,rhb>::toString() const
     os << ret;
     return os.str();
 }
+
 template<int lhb, int rhb>
-type fixed_Point<lhb,rhb>::getQ() const
+typename fixed_Point<lhb,rhb>::type fixed_Point<lhb,rhb>::getQ() const
 {
     return mQ;
 }
@@ -196,9 +194,6 @@ template<int lhb,int rhb>
 fixed_Point<lhb,rhb>::operator int() const{
     return (int)mQ /pow(2,rhb);
 }
-
-
-
 
 template<const int lhb,const int rhb>
 fixed_Point<lhb,rhb> fixed_Point<lhb,rhb>:: operator -() const
