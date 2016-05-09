@@ -21,11 +21,7 @@ public :
         ;
     }
     size_t size(){
-<<<<<<< HEAD
-        ;
-=======
 
->>>>>>> b11ed6834a80d6daa62b0b95e42eca44c3dccc04
     }
     size_t capacity(){
         ;
