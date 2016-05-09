@@ -21,10 +21,11 @@ public :
         ;
     }
     size_t size(){
-        ;
+        return size;
     }
+
     size_t capacity(){
-        ;
+        return capapcity;
     }
 
     void clear(){
@@ -57,6 +58,9 @@ public :
 
 private:
     T* data;
+    size_t size;
+    size_t capapcity;
+
 };
 
 #endif // MY_VECTOR_H
