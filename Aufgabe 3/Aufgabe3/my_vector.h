@@ -11,18 +11,19 @@ public :
         data(idata){
 
     }
+
     ~my(T idata):
         data(idata){
 
     }
 
-    std::size_T empty(){
+    bool empty(){
         ;
     }
-    std::size_T size(){
-        ;
+    size_t size(){
+
     }
-    std::size_T capacity(){
+    size_t capacity(){
         ;
     }
 
@@ -30,7 +31,7 @@ public :
 
     }
 
-    void reserve(size_T new_capacity){
+    void reserve(size_t new_capacity){
 
     }
 
@@ -55,7 +56,7 @@ public :
     }
 
 private:
-    T data;
+    T* data;
 };
 
 #endif // MY_VECTOR_H
