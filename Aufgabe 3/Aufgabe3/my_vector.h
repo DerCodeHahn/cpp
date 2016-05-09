@@ -4,16 +4,30 @@
 #include <cstddef>;
 
 
-template<typename T>
-class my{
-public :
-    my vector(T idata):
-        data(idata){
+namespace  my{
 
+template<typename T>
+class vector{
+public :
+    vector(){
+        this->size = 0;
+        this->cap = 1;
+        malloc (_size * sizeof(T));
     }
 
-    ~my(T idata):
-        data(idata){
+    vector(int size){
+        this->size = _size;
+        this->cap = _size+2;
+        malloc (size * sizeof(T));
+    }
+    vector(int size, T first){
+        this->size = _size;
+        this->cap = _size+2;
+        malloc (size * sizeof(T));
+        data = &first;
+    }
+
+    ~vector(){
 
     }
 
@@ -21,11 +35,11 @@ public :
         ;
     }
     size_t size(){
-        return size;
+        return _size;
     }
 
     size_t capacity(){
-        return capapcity;
+        return _capacity;
     }
 
     void clear(){
@@ -44,7 +58,7 @@ public :
 
     }
 
-    void popback(){
+    void pop_back(){
 
     }
 
@@ -58,9 +72,9 @@ public :
 
 private:
     T* data;
-    size_t size;
-    size_t capapcity;
+    size_t _size;
+    size_t _cap;
 
 };
-
+}
 #endif // MY_VECTOR_H
