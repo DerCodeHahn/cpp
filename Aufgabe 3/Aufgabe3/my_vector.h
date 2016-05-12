@@ -10,20 +10,20 @@ template<typename T>
 class vector{
 public :
     vector(){
-        this->size = 0;
-        this->cap = 1;
+        this->_size = 0;
+        this->_cap = 1;
         malloc (_size * sizeof(T));
     }
 
     vector(int size){
-        this->size = _size;
-        this->cap = _size+2;
+        this->_size = _size;
+        this->_cap = _size+2;
         malloc (size * sizeof(T));
     }
     vector(int size, T first){
-        this->size = _size;
-        this->cap = _size+2;
-        malloc (size * sizeof(T));
+        this->_size = _size;
+        this->_cap = _size+2;
+        malloc (_cap * sizeof(T));
         data = &first;
     }
 
@@ -39,7 +39,7 @@ public :
     }
 
     size_t capacity(){
-        return _capacity;
+        return _cap;
     }
 
     void clear(){
@@ -63,6 +63,14 @@ public :
     }
 
     void operator[] (size_t){
+
+    }
+
+    bool operator= (vector){
+
+    }
+
+    bool operator== (vector){
 
     }
 
