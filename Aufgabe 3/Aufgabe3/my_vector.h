@@ -22,7 +22,7 @@ public :
     }
     const vector(int size, T first){
         this->_size = size;
-        this->_cap = _size+2;
+        this->_cap = _size;
         malloc (_cap * sizeof(T));
         data = &first;
     }
@@ -70,16 +70,6 @@ public :
     T at(size_t)const{
         return *data;
     }
-
-    bool operator= (vector){
-
-    }
-
-    bool operator== (vector){
-
-    }
-
-
 
 private:
     T* data;
