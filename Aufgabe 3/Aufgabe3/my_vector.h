@@ -9,19 +9,19 @@ namespace  my{
 template<typename T>
 class vector{
 public :
-    vector(){
+    const vector(){
         this->_size = 0;
         this->_cap = 1;
-        malloc (_size * sizeof(T));
+        malloc (_cap * sizeof(T));
     }
 
-    vector(int size){
-        this->_size = _size;
+    const vector(int size){
+        this->_size = size;
         this->_cap = _size+2;
-        malloc (size * sizeof(T));
+        malloc (_cap * sizeof(T));
     }
-    vector(int size, T first){
-        this->_size = _size;
+    const vector(int size, T first){
+        this->_size = size;
         this->_cap = _size+2;
         malloc (_cap * sizeof(T));
         data = &first;
@@ -31,14 +31,15 @@ public :
 
     }
 
-    bool empty(){
-        ;
+    bool  empty()const{
+        return true;
     }
-    size_t size(){
+
+    size_t size()const{
         return _size;
     }
 
-    size_t capacity(){
+    size_t capacity()const{
         return _cap;
     }
 
@@ -58,12 +59,16 @@ public :
 
     }
 
-    void pop_back(){
-
+    T pop_back(){
+        return *data;
     }
 
-    void operator[] (size_t){
+    T operator[] (size_t)const{
+        return *data;
+    }
 
+    T at(size_t)const{
+        return *data;
     }
 
     bool operator= (vector){
@@ -74,9 +79,7 @@ public :
 
     }
 
-    void at(size_t){
 
-    }
 
 private:
     T* data;
