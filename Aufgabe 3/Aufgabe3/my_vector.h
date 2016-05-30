@@ -20,14 +20,14 @@ public :
         this->_cap = _size+2;
         malloc (_cap * sizeof(T));
     }
-    const vector(int size, T first){
+    const vector(int size){
         this->_size = size;
         this->_cap = _size;
         malloc (_cap * sizeof(T));
         data = &first;
     }
 
-    ~vector(){
+    const ~vector(){
 
     }
 
