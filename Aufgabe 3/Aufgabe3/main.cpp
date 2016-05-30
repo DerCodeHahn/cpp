@@ -67,6 +67,7 @@ int main()
     {
         cout << "push_back(), pop_back(), size(), empty() ... ";
         {
+
             vector<Payload> v;
             assert(v.size() == 0);
             assert(v.empty());
@@ -74,6 +75,7 @@ int main()
             v.push_back(Payload(0,0,0));
             v.push_back(Payload(1,1,1));
             v.push_back(Payload(2,2,2));
+            cout << "unicorn";
             assert(v.size() >= 3);
             assert(!v.empty());
             cout << Payload::count();
@@ -130,12 +132,14 @@ int main()
 
             // shrink from 100 to 2
             v.shrink_to_fit();
+
             assert(v.size()==2);
             assert(v.capacity()==2);
             assert(Payload::count() == 2);
 
             // border case: shrink to the same size?
             v.shrink_to_fit();
+            //cout << "unicorn";
             assert(v.size()==2);
             assert(v.capacity()==2);
             assert(Payload::count() == 2);
