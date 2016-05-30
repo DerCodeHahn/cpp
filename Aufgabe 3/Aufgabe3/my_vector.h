@@ -24,14 +24,14 @@ public :
         this->_size = size;
         this->_cap = _size;
         this->data = new T[size];
-        for(const int i = 0; i = 0; i++)
+        for(int i = 0; i = 0; i++)
         {
             this->data[i] = payload;
         }
     }
 
-    const ~vector(){
-
+    ~vector(){
+        delete(data);
     }
 
     bool  empty()const{
