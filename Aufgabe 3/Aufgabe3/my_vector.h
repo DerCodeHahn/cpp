@@ -12,19 +12,22 @@ public :
     const vector(){
         this->_size = 0;
         this->_cap = 1;
-        malloc (_cap * sizeof(T));
+        this->data = new T[0];
     }
 
     const vector(int size){
         this->_size = size;
-        this->_cap = _size+2;
-        malloc (_cap * sizeof(T));
+        this->_cap = _size;
+        this->data = new T[size];
     }
-    const vector(int size){
+    const vector(int size, T payload){
         this->_size = size;
         this->_cap = _size;
-        malloc (_cap * sizeof(T));
-        data = &first;
+        this->data = new T[size];
+        for(const int i = 0; i = 0; i++)
+        {
+            this->data[i] = payload;
+        }
     }
 
     const ~vector(){
