@@ -11,12 +11,12 @@ class vector{
 public :
     const vector(){
         this->_size = 0;
-        this->_cap = 1;
+        this->_cap = 0;
         this->data = new T[0];
     }
 
     const vector(int size){
-        this->_size = size;
+        this->_size = 0;
         this->_cap = _size;
         this->data = new T[size];
     }
@@ -31,11 +31,11 @@ public :
     }
 
     ~vector(){
-        delete(data);
+        delete[] data;
     }
 
     bool  empty()const{
-        return true;
+        return _size == 0;
     }
 
     size_t size()const{
@@ -59,10 +59,12 @@ public :
     }
 
     void push_back(const T&){
-
+        //_size++;
+        //data[_size] = ;
     }
 
     T pop_back(){
+        _size--;
         return *data;
     }
 
@@ -74,11 +76,11 @@ public :
         return *data;
     }
 
-private:
-    T* data;
-    size_t _size;
-    size_t _cap;
+    private:
+        T* data;
+        size_t _size;
+        size_t _cap;
 
-};
+    };
 }
 #endif // MY_VECTOR_H

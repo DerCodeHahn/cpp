@@ -45,6 +45,7 @@ int main()
     {
         cout << "construction/destruction, capacity(), size() ... ";
         vector<Payload> v0;
+
         assert(v0.size() == 0);
 
         // in case the vector reserves memory, number of Payload instances it should match
@@ -54,10 +55,10 @@ int main()
             // are the elements created?
             vector<Payload> v1(3, Payload(-1,-1,-1));
             assert(v1.size() == 3);
+
             assert(v1.capacity() == 3);
             assert(Payload::count() == v0.capacity() + v1.capacity());
         }
-
         // are the elements destroyed?
         assert(Payload::count() == 0);
         cout << " done." << endl;
@@ -75,6 +76,7 @@ int main()
             v.push_back(Payload(2,2,2));
             assert(v.size() >= 3);
             assert(!v.empty());
+            cout << Payload::count();
             assert(Payload::count() >= 3);
 
             assert(v.pop_back() == Payload(2,2,2));
