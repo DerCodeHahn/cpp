@@ -30,6 +30,14 @@ public :
             this->data[i] = payload;
         }
     }
+    vector(const vector& rhs){
+        this->_size = rhs.size();
+        this->_cap = rhs.capacity();
+        this->data = new T[this->_size];
+        for(int i = 0; i < rhs.size();i++){
+            this->data[i] = new T(*rhs[i]);
+        }
+    }
 
     ~vector(){
         delete[] data;
@@ -100,11 +108,23 @@ public :
             throw std::out_of_range("bla");
         return data[index];
     }
+    vector& operator=(const vector& rhs){
+        if(this != &rhs){
+            delete[] data;
+            this->_size = rhs.size();
+            this->_cap = rhs.capacity();
+            this->data = new T[this->_size];
+            for(int i= 0; i< this->_size ; i++){
+                this->data[i] = new T(*rhs[i]);
+            }
+        }
+        return *this;
+    }
+
     private:
         T* data;
         size_t _size;
         size_t _cap;
-
     };
 }
 #endif // MY_VECTOR_H
