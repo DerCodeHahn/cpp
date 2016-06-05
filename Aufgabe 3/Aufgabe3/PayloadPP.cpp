@@ -8,11 +8,16 @@ using my::vector;
 namespace  test{
     class test32 {
     private:
+        int16_t *add;
         vector<int16_t> genVec(int size){
+            if(size< 1){
+                size = 1;
+            }
             vector<int16_t> v0;
             for(int i = 0; i<size; i++){
                 v0.push_back(int16_t(i));
             }
+            add = &v0[0];
             return v0;
         }
     public:
@@ -43,6 +48,17 @@ namespace  test{
                 assert(!v0.empty());
             }
             cout << "done." << endl;
+            return 0;
+        }
+        int testMove(){
+            cout<<"test move ... ";
+            cout << "operator = () ... ";
+            vector<int16_t> v0 = genVec(1);
+            assert(add == &v0[0]);
+            cout << "vector() ...";
+            vector<int16_t> v1(genVec(1));
+            assert(add == &v1[0]);
+            cout<<"done."<<endl;
             return 0;
         }
     };

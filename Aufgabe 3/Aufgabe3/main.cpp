@@ -216,6 +216,9 @@ int main()
 
     test::test32 t32;
     int ret = t32.testCopy();
+    if(ret == 0){
+        ret = t32.testMove();
+    }
 
 #if 0
     {

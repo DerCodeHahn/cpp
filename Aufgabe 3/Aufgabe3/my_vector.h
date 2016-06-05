@@ -34,11 +34,14 @@ public :
     vector(const vector& rhs){
         this->_size = rhs.size();
         this->_cap = rhs.capacity();
+        this->data = new T[this->_size];
         memcpy(this->data, rhs.data, sizeof(T) * this->_size);
     }
     vector(vector&& rhs){
         this->_size = rhs.size();
+        rhs._size = 0;
         this->_cap = rhs.capacity();
+        rhs._cap = 0;
         this->data = rhs.data;
         rhs.data = nullptr;
     }
@@ -126,7 +129,9 @@ public :
     vector& operator =(vector&& rhs){
         if(this != &rhs){
             this->_size = rhs.size();
+            rhs._size = 0;
             this->_cap = rhs.capacity();
+            rhs._cap = 0;
             this->data = rhs.data;
             rhs.data = nullptr;
         }
