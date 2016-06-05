@@ -2,6 +2,7 @@
 #define MY_VECTOR_H
 
 #include <cstddef>;
+
 using namespace std;
 
 namespace  my{
@@ -99,7 +100,7 @@ public :
             throw std::out_of_range("bla");
         return data[index];
     }
-    private:
+
         T* data;
         size_t _size;
         size_t _cap;

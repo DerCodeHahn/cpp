@@ -6,4 +6,5 @@ CONFIG -= qt
 SOURCES += main.cpp
 
 HEADERS += \
-    my_vector.h
+    my_vector.h \
+    ringbuffer.h
