@@ -38,6 +38,12 @@ public :
             this->data[i] = new T(*rhs[i]);
         }
     }
+    vector(vector&& rhs){
+        this->_size = rhs.size();
+        this->_cap = rhs.capacity();
+        this->data = rhs.data;
+        rhs.data = nullptr;
+    }
 
     ~vector(){
         delete[] data;
@@ -117,6 +123,16 @@ public :
             for(int i= 0; i< this->_size ; i++){
                 this->data[i] = new T(*rhs[i]);
             }
+        }
+        return *this;
+    }
+
+    vector& operator =(vector&& rhs){
+        if(this != &rhs){
+            this->_size = rhs.size();
+            this->_cap = rhs.capacity();
+            this->data = rhs.data;
+            rhs.data = nullptr;
         }
         return *this;
     }

@@ -45,8 +45,10 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = ../../../Aufgabe\ 3/Aufgabe3/main.cpp 
-OBJECTS       = main.o
+SOURCES       = ../../../Aufgabe\ 3/Aufgabe3/main.cpp \
+		../../../Aufgabe\ 3/Aufgabe3/PayloadPP.cpp 
+OBJECTS       = main.o \
+		PayloadPP.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
@@ -95,7 +97,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		../../../../Aufgabe 3/Aufgabe3/Aufgabe3.pro ../../../Aufgabe\ 3/Aufgabe3/main.cpp
+		../../../../Aufgabe 3/Aufgabe3/Aufgabe3.pro ../../../Aufgabe\ 3/Aufgabe3/main.cpp \
+		../../../Aufgabe\ 3/Aufgabe3/PayloadPP.cpp
 QMAKE_TARGET  = Aufgabe3
 DESTDIR       = #avoid trailing-slash linebreak
 TARGET        = Aufgabe3
@@ -263,6 +266,9 @@ compiler_clean:
 
 main.o: ../../../Aufgabe\ 3/Aufgabe3/main.cpp ../../../Aufgabe\ 3/Aufgabe3/my_vector.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o ../../../Aufgabe\ 3/Aufgabe3/main.cpp
+
+PayloadPP.o: ../../../Aufgabe\ 3/Aufgabe3/PayloadPP.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o PayloadPP.o ../../../Aufgabe\ 3/Aufgabe3/PayloadPP.cpp
 
 ####### Install
 
