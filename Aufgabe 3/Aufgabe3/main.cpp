@@ -7,6 +7,9 @@
 #include "ringbuffer.h"
 #include <cmath>
 
+#include "PayloadPP.cpp"
+
+
 using namespace std;
 using my::vector;
 using my::RingBuffer;
@@ -77,6 +80,13 @@ int main()
 
             assert(v1.capacity() == 3);
             assert(Payload::count() == v0.capacity() + v1.capacity());
+        }
+        {
+            // are the elements created?
+            vector<Payload> v1(3);
+            EXPECT_EQ(v1.size(), 0);
+
+            EXPECT_EQ(3, v1.capacity() );
         }
         // are the elements destroyed?
         assert(Payload::count() == 0);
@@ -232,6 +242,12 @@ int main()
         cout << " done." << endl;
     }
 
+    test::test32 t32;
+    int ret = t32.testCopy();
+    if(ret == 0){
+        ret = t32.testMove();
+    }
+
 #if 0
     {
         // mal ausprobieren - soll vorerst nicht (!) kompilieren
@@ -282,6 +298,7 @@ int main()
         std::cout << " ---- " << std::endl;
 
         ring.resize(3);
+
         EXPECT_EQ( 3 , ring.size() );
 
         EXPECT_EQ(  042 , ring[0]  );
@@ -297,8 +314,8 @@ int main()
         EXPECT_EQ(  042 , ring[-3] );
         EXPECT_EQ( 9876 , ring[-2] );
         EXPECT_EQ( 1234 , ring[-1] );
+        cout << "descruct"<<endl;
     }
     cout << "End of tests --------------------" << endl;
 
-    return 0;
 }

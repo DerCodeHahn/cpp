@@ -1,7 +1,7 @@
 #ifndef RINGBUFFER_H
 #define RINGBUFFER_H
 
-#include "my_vector.h";
+#include "my_vector.h"
 
 using my::vector;
 namespace  my{
@@ -19,8 +19,7 @@ template<typename T>
         }
 
         const RingBuffer(int size){
-            vector<T> v1 (size);
-            v = v1;
+            v = vector<T>(size);
             ringpointer = 0;
         }
 
@@ -29,28 +28,50 @@ template<typename T>
 //            ringpointer = 0;
 //        }
 
-        ~RingBuffer(){
-            v.~vector();
-        }
+//        ~RingBuffer(){
 
-        bool  empty()const{
-            return v._size == 0;
+//        }
+
+        RingBuffer(const RingBuffer& rhs){
+            v = vector<T>(rhs.v);
+            ringpointer = rhs.ringpointer;
+        }
+        RingBuffer(RingBuffer&& rhs){
+            v = rhs.v;
+            rhs.data = nullptr;
+        }
+        //Copy assingment
+        RingBuffer& operator=(const RingBuffer& rhs){
+            if(this != &rhs){
+                delete v;
+                v = new Vector(rhs.v);
+                ringpointer = rhs.ringpointer;
+            }
+            return *this;
         }
 
         size_t size()const{
-            return v.size();
-        }
-
-        size_t capacity()const{
             return v.capacity();
         }
 
-        void clear(){
-            v.clear();
-        }
-
         void resize(int amount){
+            if(amount > v.capacity()){
+                ringpointer += v.capacity();
+                reserve(amount);
 
+            }
+            else
+            {
+                vector<T> temp = vector<T>();
+                int index = v.capacity() - (amount - ringpointer);
+                for (int var = index; var < index + amount; ++var) {
+                    temp.push_back( this->operator [](var));
+                }
+                ringpointer = 0;
+                cout << endl;
+                v = temp;
+
+            }
         }
 
         void reserve(size_t new_capacity){
@@ -62,17 +83,17 @@ template<typename T>
         }
 
         void push(const T& var){
-            int index = ringpointer++ % v.size();
+            int index = ringpointer++ % v.capacity();
             v[index] = var;
         }
 
 
         T operator[] (size_t index)const{
-            int i = (index + ringpointer) % v.size();
+            size_t i = (index + ringpointer + v.capacity()) % v.capacity();
             return v[i];
         }
         T& operator[] (size_t index){
-            int i = (index + ringpointer) % v.size();
+            size_t i = (index + ringpointer + v.capacity()) % v.capacity();
             return v[i];
         }
     };

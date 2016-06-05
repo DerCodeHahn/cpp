@@ -1,7 +1,9 @@
 #ifndef MY_VECTOR_H
 #define MY_VECTOR_H
 
-#include <cstddef>;
+#include <cstddef>
+#include <stdexcept>
+#include <string.h>
 
 using namespace std;
 
@@ -10,25 +12,42 @@ namespace  my{
 template<typename T>
 class vector{
 public :
-    const vector(){
+    vector(){
         this->_size = 0;
         this->_cap = 0;
         this->data = new T[0];
     }
 
-    const vector(int size){
+    vector(int size){
         this->_size = 0;
-        this->_cap = _size;
+        this->_cap = size;
         this->data = new T[size];
     }
-    const vector(int size, T payload){
+    vector(int size, T payload){
         this->_size = size;
         this->_cap = _size;
-        this->data = new T[size];
+        this->data = new T[_cap];
         for(int i = 0; i = 0; i++)
         {
             this->data[i] = payload;
         }
+    }
+    //Copy Constr
+    vector(const vector& rhs){
+        this->_size = rhs.size();
+        this->_cap = rhs.capacity();
+        this->data = new T[_cap];
+        for(int i=0; i<_cap; i++){
+            this->data[i] = rhs.data[i];
+        }
+    }
+    vector(vector&& rhs){
+        this->_size = rhs.size();
+        rhs._size = 0;
+        this->_cap = rhs.capacity();
+        rhs._cap = 0;
+        this->data = rhs.data;
+        rhs.data = nullptr;
     }
 
     ~vector(){
@@ -54,7 +73,7 @@ public :
     void reserve(size_t new_capacity){
         T* tempData = new T[new_capacity];
         //size_t newSize = (new_capacity <= _cap)?_cap : new_capacity ;
-        for(int i = 0; i < _cap;i++)
+        for(int i = 0; i < new_capacity;i++)
         {
             tempData[i] = data[i];
         }
@@ -101,10 +120,34 @@ public :
         return data[index];
     }
 
+    vector& operator=(const vector& rhs){
+        if(this != &rhs){
+            delete[] data;
+            this->_size = rhs.size();
+            this->_cap = rhs.capacity();
+            this->data = new T[_cap];
+            for(int i=0; i<_cap; i++){
+                this->data[i] = rhs.data[i];
+            }
+        }
+        return *this;
+    }
+
+//    vector& operator =(vector&& rhs){
+//        if(this != &rhs){
+//            this->_size = rhs.size();
+//            rhs._size = 0;
+//            this->_cap = rhs.capacity();
+//            rhs._cap = 0;
+//            this->data = rhs.data;
+//            rhs.data = nullptr;
+//        }
+//        return *this;
+//    }
+
         T* data;
         size_t _size;
         size_t _cap;
-
     };
 }
 #endif // MY_VECTOR_H

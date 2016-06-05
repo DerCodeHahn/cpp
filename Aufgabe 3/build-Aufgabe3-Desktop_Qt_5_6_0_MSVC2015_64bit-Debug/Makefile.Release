@@ -141,7 +141,8 @@ compiler_clean:
 ####### Compile
 
 release\main.obj: ..\Aufgabe3\main.cpp ..\Aufgabe3\my_vector.h \
-		..\Aufgabe3\ringbuffer.h
+		..\Aufgabe3\ringbuffer.h \
+		..\Aufgabe3\PayloadPP.cpp
 
 ####### Install
 
