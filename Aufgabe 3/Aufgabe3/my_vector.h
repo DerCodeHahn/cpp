@@ -2,6 +2,7 @@
 #define MY_VECTOR_H
 
 #include <cstddef>;
+#include <stdexcept>
 using namespace std;
 
 namespace  my{
@@ -9,18 +10,18 @@ namespace  my{
 template<typename T>
 class vector{
 public :
-    const vector(){
+    vector(){
         this->_size = 0;
         this->_cap = 0;
         this->data = new T[0];
     }
 
-    const vector(int size){
+    vector(int size){
         this->_size = 0;
         this->_cap = _size;
         this->data = new T[size];
     }
-    const vector(int size, T payload){
+    vector(int size, T payload){
         this->_size = size;
         this->_cap = _size;
         this->data = new T[size];
