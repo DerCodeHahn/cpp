@@ -2,6 +2,8 @@
 #define RINGBUFFER_H
 
 #include "my_vector.h";
+
+using my::vector;
 namespace  my{
 template<typename T>
     class RingBuffer{
@@ -17,17 +19,18 @@ template<typename T>
         }
 
         const RingBuffer(int size){
-            v = new vector<T>(size);
+            vector<T> v1 (size);
+            v = v1;
             ringpointer = 0;
         }
 
-        const RingBuffer(int size, T payload){
-            v = new vector<T>(size, payload);
-            ringpointer = 0;
-        }
+//        const RingBuffer(int size, T payload){
+//            v = new vector<T>(size, payload);
+//            ringpointer = 0;
+//        }
 
         ~RingBuffer(){
-            delete[] v;
+            v.~vector();
         }
 
         bool  empty()const{
@@ -46,54 +49,31 @@ template<typename T>
             v.clear();
         }
 
-        void reserve(size_t new_capacity){
-            T* tempData = new T[new_capacity];
-            //size_t newSize = (new_capacity <= _cap)?_cap : new_capacity ;
-            for(int i = 0; i < _cap;i++)
-            {
-                tempData[i] = data[i];
-            }
-            _cap = new_capacity;
-            delete[] data;
-            data = tempData;
+        void resize(int amount){
 
+        }
+
+        void reserve(size_t new_capacity){
+            v.reserve(new_capacity);
         }
 
         void shrink_to_fit(){
-            //if(_size <= )
-            T* tempData = new T[_size];
-            for(int i = 0; i < _size;i++)
-            {
-                tempData[i] = data[i];
-            }
-            _cap = _size;
-            delete[] data;
-            data = tempData;
+            v.shrink_to_fit();
         }
 
-        void push_back(const T& var){
-            if(_size >= _cap)
-                reserve(_size + 1);
-            data[_size++] = var;
+        void push(const T& var){
+            int index = ringpointer++ % v.size();
+            v[index] = var;
         }
 
-        T pop_back(){
-            return data[--_size];
-        }
 
         T operator[] (size_t index)const{
-            return data[index];
+            int i = (index + ringpointer) % v.size();
+            return v[i];
         }
         T& operator[] (size_t index){
-            return data[index];
-        }
-        T at(size_t index)const{
-            return data[index];
-        }
-        T& at(size_t index){
-            if(index >= _size)
-                throw std::out_of_range("bla");
-            return data[index];
+            int i = (index + ringpointer) % v.size();
+            return v[i];
         }
     };
 }

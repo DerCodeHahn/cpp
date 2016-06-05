@@ -9,7 +9,7 @@
 
 using namespace std;
 using my::vector;
-
+using my::RingBuffer;
 class Payload {
 
 public:

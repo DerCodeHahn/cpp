@@ -46,7 +46,8 @@ OBJECTS_DIR   = debug
 SOURCES       = ..\Aufgabe3\main.cpp 
 OBJECTS       = debug\main.obj
 
-DIST          =  my_vector.h ..\Aufgabe3\main.cpp
+DIST          =  my_vector.h \
+		ringbuffer.h ..\Aufgabe3\main.cpp
 QMAKE_TARGET  = Aufgabe3
 DESTDIR        = debug\ #avoid trailing-slash linebreak
 TARGET         = Aufgabe3.exe
@@ -139,7 +140,8 @@ compiler_clean:
 
 ####### Compile
 
-debug\main.obj: ..\Aufgabe3\main.cpp ..\Aufgabe3\my_vector.h
+debug\main.obj: ..\Aufgabe3\main.cpp ..\Aufgabe3\my_vector.h \
+		..\Aufgabe3\ringbuffer.h
 
 ####### Install
 
