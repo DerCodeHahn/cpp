@@ -4,6 +4,7 @@
 #include <iostream>
 #include <cassert>
 #include "my_vector.h"
+#include "PayloadPP.cpp"
 
 using namespace std;
 using my::vector;
@@ -213,6 +214,9 @@ int main()
         cout << " done." << endl;
     }
 
+    test::test32 t32;
+    int ret = t32.testCopy();
+
 #if 0
     {
         // mal ausprobieren - soll vorerst nicht (!) kompilieren
@@ -223,5 +227,5 @@ int main()
 
     cout << "End of tests --------------------" << endl;
 
-    return 0;
+    return ret;
 }

@@ -3,6 +3,7 @@
 
 #include <cstddef>;
 #include <stdexcept>
+#include <string.h>
 using namespace std;
 
 namespace  my{
@@ -33,10 +34,7 @@ public :
     vector(const vector& rhs){
         this->_size = rhs.size();
         this->_cap = rhs.capacity();
-        this->data = new T[this->_size];
-        for(int i = 0; i < rhs.size();i++){
-            this->data[i] = new T(*rhs[i]);
-        }
+        memcpy(this->data, rhs.data, sizeof(T) * this->_size);
     }
     vector(vector&& rhs){
         this->_size = rhs.size();
@@ -120,9 +118,7 @@ public :
             this->_size = rhs.size();
             this->_cap = rhs.capacity();
             this->data = new T[this->_size];
-            for(int i= 0; i< this->_size ; i++){
-                this->data[i] = new T(*rhs[i]);
-            }
+            memcpy(this->data, rhs.data, sizeof(T) * this->_size);
         }
         return *this;
     }
