@@ -14,8 +14,9 @@ template<typename T>
 
     public:
         const RingBuffer(){
-            v = new vector<T>();
+            v = vector<T>();
             ringpointer = 0;
+
         }
 
         const RingBuffer(int size){
@@ -29,26 +30,26 @@ template<typename T>
 //        }
 
 //        ~RingBuffer(){
-
+//            delete v;
 //        }
 
-        RingBuffer(const RingBuffer& rhs){
-            v = vector<T>(rhs.v);
-            ringpointer = rhs.ringpointer;
-        }
-        RingBuffer(RingBuffer&& rhs){
-            v = rhs.v;
-            rhs.data = nullptr;
-        }
+//        RingBuffer(const RingBuffer& rhs){
+//            v = vector<T>(rhs.v);
+//            ringpointer = rhs.ringpointer;
+//        }
+//        RingBuffer(RingBuffer&& rhs){
+//            v = rhs.v;
+//            rhs.data = nullptr;
+//        }
         //Copy assingment
-        RingBuffer& operator=(const RingBuffer& rhs){
-            if(this != &rhs){
-                delete v;
-                v = new Vector(rhs.v);
-                ringpointer = rhs.ringpointer;
-            }
-            return *this;
-        }
+//        RingBuffer& operator=(const RingBuffer& rhs){
+//            if(this != &rhs){
+//                delete v;
+//                v = new Vector(rhs.v);
+//                ringpointer = rhs.ringpointer;
+//            }
+//            return *this;
+//        }
 
         size_t size()const{
             return v.capacity();
@@ -62,14 +63,20 @@ template<typename T>
             }
             else
             {
-                vector<T> temp = vector<T>();
-                int index = v.capacity() - (amount - ringpointer);
-                for (int var = index; var < index + amount; ++var) {
-                    temp.push_back( this->operator [](var));
+                vector<T> temp = vector<T>(amount);
+                for (int i = amount; i >= 0 ; --i) {
+                    temp[amount - i] = v[ringpointer - i];
                 }
                 ringpointer = 0;
-                cout << endl;
                 v = temp;
+//                vector<T> temp = vector<T>();
+//                int index = v.capacity() - (amount - ringpointer);
+//                for (int var = index; var < index + amount; ++var) {
+//                    temp.push_back( this->operator [](var));
+//                }
+//                ringpointer = 0;
+//                cout << endl;
+//                v = temp;
 
             }
         }
