@@ -2,6 +2,7 @@
 
 #include <QLabel>
 
+
 // This class merely translates the mouse events that can only be reached via inharitance
 // as signals so we can connect to them.
 

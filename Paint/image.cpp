@@ -1,0 +1,19 @@
+#include "image.h"
+#include <algorithm>
+
+using namespace std;
+
+namespace my {
+    image::image( size_t width, size_t height )
+    : width_   { width }
+    , height_  { height }
+    , data_    ( width * height, 0xff123456 )
+    {}
+
+    void image::clear()
+    {
+        fill(data_.begin(),data_.end(),0xff123456);
+
+    }
+}
+
