@@ -10,6 +10,7 @@ namespace my {
     , data_    ( width * height, 0xff123456 )
     {}
 
+    //Clear image with a color
     void image::clear(int color)
     {
         fill(data_.begin(),data_.end(),color);

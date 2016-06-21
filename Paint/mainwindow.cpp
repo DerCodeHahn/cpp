@@ -38,7 +38,7 @@ MainWindow::MainWindow(QWidget *parent) :
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
        update_label();
     });
-
+    //Register Handlers
     connect (ui->clearButton,SIGNAL (released()), this, SLOT (handleButton()));
     connect (ui->redSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideRed(int)));
     connect (ui->greenSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideGreen(int)));
@@ -48,9 +48,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->selectedColor->setAutoFillBackground(true);
     update_label();
 
-    //setCentralWidget(label_);
 }
-
+//Gets Triggert if the one of the sliders is moved
 void MainWindow::SlideRed(int val){
     std::cout << "red slide " << val << std::endl;
     activeColor.setRed(val);
@@ -66,9 +65,9 @@ void MainWindow::SlideBlue(int val){
     activeColor.setBlue(val);
     SetSelectedColor();
 }
-
+//Set the Current Color to the Area to show it
 void MainWindow::SetSelectedColor(){
-    QPalette pal = ui->selectedColor->palette();//.window().setColor(activeColor);// = QBrush(activeColor,Qt::SolidPattern );
+    QPalette pal = ui->selectedColor->palette();
     pal.setColor(QPalette::Background, activeColor);
     ui->selectedColor->setPalette(pal);
 }
@@ -86,8 +85,12 @@ void MainWindow::UpdateImage()
 }
 void MainWindow::handleButton()
 {
-    std::cout << "button clear" << std::endl;
-    image_.clear(activeColor.HexArgb);
+    QString qs = activeColor.name(QColor::HexArgb);
+    qs.remove(0,1);
+    bool npointr;
+    std::uint32_t color = qs.toUInt(&npointr,16);
+    std::cout << "button clear to " << color  << std::endl;
+    image_.clear(color);
     UpdateImage();
 }
 
