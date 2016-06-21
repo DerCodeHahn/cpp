@@ -29,7 +29,8 @@ MainWindow::MainWindow(QWidget *parent) :
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
        std::cout << "mouse move: " << x << ", " << y << std::endl;
-       image_.set_pixel( x, y, 0xffeeaaaa );
+       int color = (int) GetActiveColorCode();
+       image_.set_pixel( x, y, color );
        update_label();
     });
 
@@ -85,13 +86,18 @@ void MainWindow::UpdateImage()
 }
 void MainWindow::handleButton()
 {
+    uint32_t color = GetActiveColorCode();
+    std::cout << "button clear to " << color  << std::endl;
+    image_.clear(color);
+    UpdateImage();
+}
+
+std::uint32_t MainWindow::GetActiveColorCode(){
     QString qs = activeColor.name(QColor::HexArgb);
     qs.remove(0,1);
     bool npointr;
     std::uint32_t color = qs.toUInt(&npointr,16);
-    std::cout << "button clear to " << color  << std::endl;
-    image_.clear(color);
-    UpdateImage();
+    return color;
 }
 
 MainWindow::~MainWindow()

@@ -27,6 +27,7 @@ private slots:
 private:
     Ui::MainWindow *ui;
     void SetSelectedColor();
+    uint32_t GetActiveColorCode();
 };
 
 #endif // MAINWINDOW_H
