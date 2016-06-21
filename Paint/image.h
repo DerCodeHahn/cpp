@@ -23,7 +23,7 @@ public:
     auto width() const  -> size_t          { return width_; }
     auto height() const -> size_t          { return height_; }
     auto data() const   -> rgba_t const*   { return data_.data(); }
-    void clear();
+    void clear(int color);
 private:
 
    size_t  width_;

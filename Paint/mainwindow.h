@@ -15,12 +15,18 @@ class MainWindow : public QMainWindow
     my::image       image_;
 public:
     explicit MainWindow(QWidget *parent = 0);
+    void UpdateImage();
+    QColor activeColor;
     ~MainWindow();
 private slots:
     void handleButton();
+    void SlideRed(int val);
+    void SlideGreen(int val);
+    void SlideBlue(int val);
+
 private:
     Ui::MainWindow *ui;
-
+    void SetSelectedColor();
 };
 
 #endif // MAINWINDOW_H
