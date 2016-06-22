@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "image.h"
+#include "brush.h"
 
 namespace Ui {
 class MainWindow;
@@ -12,7 +13,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
     class MyLabel*  label_;
-    my::image       image_;
+    my::Image       image_;
+    my::Brush       activeBrush;
 public:
     explicit MainWindow(QWidget *parent = 0);
     void UpdateImage();
@@ -23,7 +25,7 @@ private slots:
     void SlideRed(int val);
     void SlideGreen(int val);
     void SlideBlue(int val);
-
+    void ChangeSize(int val);
 private:
     Ui::MainWindow *ui;
     void SetSelectedColor();

@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \
-    mylabel.cpp
+    mylabel.cpp \
+    brush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
-    mylabel.h
+    mylabel.h \
+    brush.h
 
 FORMS    += mainwindow.ui

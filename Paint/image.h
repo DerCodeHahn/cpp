@@ -7,13 +7,13 @@
 namespace my
 {
 
-class image
+class Image
 {
 public:
     using rgba_t = std::uint32_t;
 
 
-    image( size_t width = {} , size_t height = {} );
+    Image( size_t width = {} , size_t height = {} );
 
     void set_pixel( size_t x, size_t y, rgba_t pixel )
     {

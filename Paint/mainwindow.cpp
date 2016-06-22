@@ -13,14 +13,17 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
     , image_       { 800, 400 }
+    , activeBrush (&image_,3)
 {
     ui->setupUi(this);
+
     activeColor = QColor(0,0,0,255);
+    //activeBrush = my::Brush(&image_, 3);
     auto update_label = [this]
     {
        auto qimage = QImage(
           reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
-          sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
+          sizeof(my::Image::rgba_t)*image_.width(), QImage::Format_ARGB32
        );
 
        label_->setPixmap(QPixmap::fromImage( qimage ));
@@ -30,7 +33,8 @@ MainWindow::MainWindow(QWidget *parent) :
     {
        std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
-       image_.set_pixel( x, y, color );
+       //image_.set_pixel( x, y, color );
+       activeBrush.OnMouseMove(x,y,color);
        update_label();
     });
 
@@ -44,12 +48,18 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->redSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideRed(int)));
     connect (ui->greenSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideGreen(int)));
     connect (ui->blueSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideBlue(int)));
+    connect (ui->sizeBox, SIGNAL(valueChanged(int)),this ,SLOT(ChangeSize(int)));
+
 
     label_->setParent(ui->paint)  ;
     ui->selectedColor->setAutoFillBackground(true);
     update_label();
 
 }
+void MainWindow::ChangeSize(int val){
+    activeBrush.SetSize(val);
+}
+
 //Gets Triggert if the one of the sliders is moved
 void MainWindow::SlideRed(int val){
     std::cout << "red slide " << val << std::endl;
@@ -79,7 +89,7 @@ void MainWindow::UpdateImage()
 {
     auto qimage = QImage(
         reinterpret_cast<uchar const*>(image_.data()), image_.width(), image_.height(),
-        sizeof(my::image::rgba_t)*image_.width(), QImage::Format_ARGB32
+        sizeof(my::Image::rgba_t)*image_.width(), QImage::Format_ARGB32
      );
 
      label_->setPixmap(QPixmap::fromImage( qimage ));
