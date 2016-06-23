@@ -7,17 +7,20 @@ namespace my
 
 class Brush
 {
-private:
+protected:
     Image* img_;
     int size_;
+    void Emit(int x, int y, int color);
 public:
-
+    Brush();
     Brush(Image* i, float size):img_(i), size_(size)
     {
     }
-    void OnMouseDown(int x, int y, int color);
-    void OnMouseMove(int x, int y, int color);
+    virtual void OnMouseDown(int x, int y, int color);
+    virtual void OnMouseMove(int x, int y, int color);
     void SetSize(int size);
+    int GetSize();
+
 };
 }
 #endif // BRUSH_H

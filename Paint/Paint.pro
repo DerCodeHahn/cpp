@@ -16,11 +16,13 @@ SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \
     mylabel.cpp \
-    brush.cpp
+    brush.cpp \
+    linebrush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
     mylabel.h \
-    brush.h
+    brush.h \
+    linebrush.h
 
 FORMS    += mainwindow.ui

@@ -15,15 +15,14 @@ public:
 
     Image( size_t width = {} , size_t height = {} );
 
-    void set_pixel( size_t x, size_t y, rgba_t pixel )
-    {
-       data_[ y*width_ + x ] = pixel;
-    }
+    void set_pixel( size_t x, size_t y, rgba_t pixel );
+
 
     auto width() const  -> size_t          { return width_; }
     auto height() const -> size_t          { return height_; }
     auto data() const   -> rgba_t const*   { return data_.data(); }
     void clear(int color);
+
 private:
 
    size_t  width_;

@@ -1,6 +1,8 @@
 #include "mainwindow.h"
 #include "mylabel.h"
 #include "ui_mainwindow.h"
+#include "brush.h"
+
 #include <QPixmap>
 
 #include <iostream>
@@ -13,10 +15,11 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
     , image_       { 800, 400 }
-    , activeBrush (&image_,3)
+    , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
 {
     ui->setupUi(this);
 
+    activeBrush = new my::Brush(&image_,1);
     activeColor = QColor(0,0,0,255);
     //activeBrush = my::Brush(&image_, 3);
     auto update_label = [this]
@@ -34,13 +37,15 @@ MainWindow::MainWindow(QWidget *parent) :
        std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        //image_.set_pixel( x, y, color );
-       activeBrush.OnMouseMove(x,y,color);
+       (*activeBrush).OnMouseMove(x, y, color);
        update_label();
     });
 
     connect( label_, &MyLabel::onMouseDown, [update_label,this](int x, int y)
     {
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       int color = (int) GetActiveColorCode();
+       (*activeBrush).OnMouseDown(x, y, color);
        update_label();
     });
     //Register Handlers
@@ -49,15 +54,28 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->greenSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideGreen(int)));
     connect (ui->blueSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideBlue(int)));
     connect (ui->sizeBox, SIGNAL(valueChanged(int)),this ,SLOT(ChangeSize(int)));
-
+    connect (ui->actionDot,SIGNAL(triggered(bool)), this, SLOT(SetBrushDot()));
+    connect (ui->actionLine,SIGNAL(triggered(bool)), this, SLOT(SetBrushLine()));
 
     label_->setParent(ui->paint)  ;
     ui->selectedColor->setAutoFillBackground(true);
     update_label();
 
 }
+
+void MainWindow::SetBrushDot()
+{
+    std::cout << "Set standart Brush" << std::endl;
+    activeBrush = new my::Brush(&image_, (*activeBrush).GetSize());
+}
+void MainWindow::SetBrushLine()
+{
+    std::cout << "SetLine Brush" << std::endl;
+    activeBrush = new my::LineBrush(&image_, (*activeBrush).GetSize());
+}
+
 void MainWindow::ChangeSize(int val){
-    activeBrush.SetSize(val);
+    (*activeBrush).SetSize(val);
 }
 
 //Gets Triggert if the one of the sliders is moved

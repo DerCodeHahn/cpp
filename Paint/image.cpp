@@ -13,8 +13,14 @@ namespace my {
     //Clear image with a color
     void Image::clear(int color)
     {
-        fill(data_.begin(),data_.end(),color);
+        fill(data_.begin(), data_.end(), color);
+    }
 
+    void Image::set_pixel(size_t x, size_t y, rgba_t pixel){
+        if(x < 0 || y < 0 || x >= width()|| y >= height())
+            return ;
+
+        data_[ y*width_ + x ] = pixel;
     }
 }
 

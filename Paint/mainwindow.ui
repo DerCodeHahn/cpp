@@ -191,8 +191,8 @@
     <property name="title">
      <string>Tools</string>
     </property>
-    <addaction name="actionCircle"/>
-    <addaction name="actionRectangle"/>
+    <addaction name="actionDot"/>
+    <addaction name="actionLine"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -230,12 +230,22 @@
   </action>
   <action name="actionRectangle">
    <property name="text">
-    <string>Rectangle</string>
+    <string>Line</string>
    </property>
   </action>
   <action name="actionCircle">
    <property name="text">
-    <string>Circle</string>
+    <string>Dot</string>
+   </property>
+  </action>
+  <action name="actionDot">
+   <property name="text">
+    <string>Dot</string>
+   </property>
+  </action>
+  <action name="actionLine">
+   <property name="text">
+    <string>Line</string>
    </property>
   </action>
  </widget>
