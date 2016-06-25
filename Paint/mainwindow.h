@@ -5,6 +5,7 @@
 #include "image.h"
 #include "brush.h"
 #include "linebrush.h"
+#include "colorfader.h"
 
 namespace Ui {
 class MainWindow;
@@ -29,8 +30,12 @@ private slots:
     void SlideGreen(int val);
     void SlideBlue(int val);
     void ChangeSize(int val);
+    void ToggleRainbowMode(bool checked);
+    void UpdateRainbow();
 private:
     Ui::MainWindow *ui;
+    QTimer *timer;
+    my::ColorFader colorfader;
     void SetSelectedColor();
     uint32_t GetActiveColorCode();
 };

@@ -86,17 +86,6 @@ void LineBrush::DrawLine(int xpos, int ypos, int color){
         }
     }
 
-    /*
-    for(int x = xpos; x != lastX; x+=xIterator)
-    {
-        //std::cout <<" x : " << x << std::endl;
-        for(int y = ypos; y != lastY; y+=yIterator)
-        {
-            Emit(x,y,color);
-        }
-        if(!(x <= 500 && x >= -500))
-            break;
-    }*/
     lastX = saveXpos;
     lastY = saveYpos;
 }

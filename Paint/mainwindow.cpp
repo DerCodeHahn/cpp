@@ -4,7 +4,7 @@
 #include "brush.h"
 
 #include <QPixmap>
-
+#include <QTimer>
 #include <iostream>
 
 #include <QCoreApplication>
@@ -18,6 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
 {
     ui->setupUi(this);
+
+    colorfader = my::ColorFader();
+    timer = new QTimer (this);
+    connect(timer, SIGNAL(timeout()), this, SLOT(UpdateRainbow()));
 
     activeBrush = new my::Brush(&image_,1);
     activeColor = QColor(0,0,0,255);
@@ -56,11 +60,33 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->sizeBox, SIGNAL(valueChanged(int)),this ,SLOT(ChangeSize(int)));
     connect (ui->actionDot,SIGNAL(triggered(bool)), this, SLOT(SetBrushDot()));
     connect (ui->actionLine,SIGNAL(triggered(bool)), this, SLOT(SetBrushLine()));
+    connect (ui->RainbowBox,SIGNAL(toggled(bool)), this, SLOT(ToggleRainbowMode(bool)));
+
 
     label_->setParent(ui->paint)  ;
     ui->selectedColor->setAutoFillBackground(true);
     update_label();
+}
+void MainWindow::ToggleRainbowMode(bool checked){
+    if(checked)
+    {
+        timer->start(10);
+    }
+    else
+    {
+        timer->stop();
+    }
+}
 
+void MainWindow::UpdateRainbow(){
+
+    colorfader.Update();
+    std::vector<int> c = colorfader.getColor();
+    activeColor.setRed(c[0]);
+    activeColor.setGreen(c[1]);
+    activeColor.setBlue(c[2]);
+    std::cout << "Rainbow " << c[0] << " " << c[1]<< " "<< c[2] << std::endl;
+    SetSelectedColor();
 }
 
 void MainWindow::SetBrushDot()
