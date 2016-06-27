@@ -17,17 +17,28 @@ namespace my {
         bgColor = color;
     }
 
-    void Image::set_pixel(size_t x, size_t y, rgba_t pixel){
+    void Image::set_pixel(size_t x, size_t y, pixel_t pixel){
         if(x < 0 || y < 0 || x >= width()|| y >= height())
             return ;
 
         data_[ y*width_ + x ] = pixel;
     }
 
-    uint32_t Image::getPixel(size_t x, size_t y){
-        if(x < 0 || y < 0 || x >= width()|| y >= height())
-            return bgColor;
-        return data_[ y*width_ + x ];
+//    uint32_t Image::getPixel(size_t x, size_t y){
+//        //if(x < 0 || y < 0 || x >= width()|| y >= height())
+//        //    return bgColor;
+//        return data_[ y*width_ + x ];
+//    }
+
+    vector<uint32_t>  Image::getData(){
+        vector<uint32_t> dat (width_ * height_);
+        for (int y = 0; y < height_; ++y) {
+            for(int x = 0; x < width_;x ++)
+            {
+                dat[y * width_ + x] = getPixel(x,y);
+            }
+        }
+        return dat;
     }
 
     uint32_t Image::getBackgroundColor(){
