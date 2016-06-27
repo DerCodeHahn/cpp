@@ -24,18 +24,19 @@ public:
     QColor activeColor;
     ~MainWindow();
 private slots:
+    void ChangeSize(int val);
+
+private:
     void handleButton();
     void SetBrushDot();
     void SetBrushLine();
     void SlideRed(int val);
     void SlideGreen(int val);
     void SlideBlue(int val);
-    void ChangeSize(int val);
     void ToggleRainbowMode(bool checked);
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
-private:
     Ui::MainWindow *ui;
     my::GameOfLife game;
     QTimer *rainbowTimer;
