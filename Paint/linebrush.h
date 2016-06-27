@@ -2,7 +2,7 @@
 #define LINEBRUSH_H
 
 #include <sstream>
-#include "brush.h";
+#include "brush.h"
 
 namespace my{
 class LineBrush:public Brush
@@ -13,7 +13,7 @@ private:
     int getDirection(int pos, int target);
     int GetDelta(int x1, int x2);
 public:
-    LineBrush(Image* i, float size);
+    LineBrush(Image* i, int size);
     void DrawLine(int x, int y, int color);
     void OnMouseMove(int x, int y, int color) override;
     void OnMouseDown(int x, int y, int color) override;

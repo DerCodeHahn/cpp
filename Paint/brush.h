@@ -13,7 +13,7 @@ protected:
     void Emit(int x, int y, int color);
 public:
     Brush();
-    Brush(Image* i, float size):img_(i), size_(size)
+    Brush(Image* i, int size):img_(i), size_(size)
     {
     }
     virtual void OnMouseDown(int x, int y, int color);

@@ -6,6 +6,7 @@
 #include <QPixmap>
 #include <QTimer>
 #include <iostream>
+#include <chrono>
 
 #include <QCoreApplication>
 
@@ -20,8 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
     ui->setupUi(this);
 
     colorfader = my::ColorFader();
-    timer = new QTimer (this);
-    connect(timer, SIGNAL(timeout()), this, SLOT(UpdateRainbow()));
+    rainbowTimer = new QTimer (this);
+    connect(rainbowTimer, SIGNAL(timeout()), this, SLOT(UpdateRainbow()));
+
+    gameOfLifeTimer = new QTimer (this);
+    connect(gameOfLifeTimer, SIGNAL(timeout()), this, SLOT(UpdateGameOfLife()));
+
 
     activeBrush = new my::Brush(&image_,1);
     activeColor = QColor(0,0,0,255);
@@ -38,7 +43,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [update_label,this](int x, int y)
     {
-       std::cout << "mouse move: " << x << ", " << y << std::endl;
+       //std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        //image_.set_pixel( x, y, color );
        (*activeBrush).OnMouseMove(x, y, color);
@@ -61,20 +66,37 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->actionDot,SIGNAL(triggered(bool)), this, SLOT(SetBrushDot()));
     connect (ui->actionLine,SIGNAL(triggered(bool)), this, SLOT(SetBrushLine()));
     connect (ui->RainbowBox,SIGNAL(toggled(bool)), this, SLOT(ToggleRainbowMode(bool)));
-
+    connect (ui->GameOfLifeBtn, SIGNAL(clicked(bool)), this, SLOT(StartGameOfLife()));
 
     label_->setParent(ui->paint)  ;
     ui->selectedColor->setAutoFillBackground(true);
+    SetSelectedColor();
     update_label();
+
 }
+
+void MainWindow::StartGameOfLife(){
+    game = my::GameOfLife(&image_, false);
+    gameOfLifeTimer->start(500);
+}
+
+void MainWindow::UpdateGameOfLife() {
+    auto start = std::chrono::steady_clock::now();
+    game.Update();
+    auto duration = std::chrono::duration_cast< std::chrono::milliseconds   >(std::chrono::steady_clock::now() - start);
+
+    std::cout << "Game of Life Update "  << duration.count() << " ms "<< std::endl;
+    UpdateImage();
+}
+
 void MainWindow::ToggleRainbowMode(bool checked){
     if(checked)
     {
-        timer->start(10);
+        rainbowTimer->start(1);
     }
     else
     {
-        timer->stop();
+        rainbowTimer->stop();
     }
 }
 
@@ -85,7 +107,7 @@ void MainWindow::UpdateRainbow(){
     activeColor.setRed(c[0]);
     activeColor.setGreen(c[1]);
     activeColor.setBlue(c[2]);
-    std::cout << "Rainbow " << c[0] << " " << c[1]<< " "<< c[2] << std::endl;
+    //std::cout << "Rainbow " << c[0] << " " << c[1]<< " "<< c[2] << std::endl;
     SetSelectedColor();
 }
 

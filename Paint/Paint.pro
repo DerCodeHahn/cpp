@@ -18,13 +18,15 @@ SOURCES += main.cpp\
     mylabel.cpp \
     brush.cpp \
     linebrush.cpp \
-    colorfader.cpp
+    colorfader.cpp \
+    gameoflife.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
     mylabel.h \
     brush.h \
     linebrush.h \
-    colorfader.h
+    colorfader.h \
+    gameoflife.h
 
 FORMS    += mainwindow.ui

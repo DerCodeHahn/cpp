@@ -6,6 +6,7 @@
 #include "brush.h"
 #include "linebrush.h"
 #include "colorfader.h"
+#include "gameoflife.h"
 
 namespace Ui {
 class MainWindow;
@@ -32,9 +33,13 @@ private slots:
     void ChangeSize(int val);
     void ToggleRainbowMode(bool checked);
     void UpdateRainbow();
+    void StartGameOfLife();
+    void UpdateGameOfLife();
 private:
     Ui::MainWindow *ui;
-    QTimer *timer;
+    my::GameOfLife game;
+    QTimer *rainbowTimer;
+    QTimer *gameOfLifeTimer;
     my::ColorFader colorfader;
     void SetSelectedColor();
     uint32_t GetActiveColorCode();
