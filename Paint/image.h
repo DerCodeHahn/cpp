@@ -3,14 +3,16 @@
 #pragma once
 
 #include <vector>
+#include <cstdint>
 
+using std::size_t;
 namespace my
 {
 
 class Image
 {
 public:
-    using rgba_t = std::uint32_t;
+    using rgba_t = uint32_t;
 
 
     Image( size_t width = {} , size_t height = {} );
@@ -18,7 +20,7 @@ public:
     void set_pixel( size_t x, size_t y, rgba_t pixel );
     uint32_t getPixel(size_t x, size_t y);
 
-    auto width() const  -> size_t          { return width_; }
+    auto width() const -> size_t          { return width_; }
     auto height() const -> size_t          { return height_; }
     auto data() const   -> rgba_t const*   { return data_.data(); }
     void clear(int color);

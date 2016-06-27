@@ -1,23 +1,23 @@
-#ifndef LINEBRUSH_H
-#define LINEBRUSH_H
+#ifndef RECTANGLEBRUSH_H
+#define RECTANGLEBRUSH_H
 
-#include <sstream>
 #include "brush.h"
 
 namespace my{
-class LineBrush:public Brush
+class rectanglebrush:public Brush
 {
+
 private:
     int lastX;
     int lastY;
     int getDirection(int pos, int target);
     int GetDelta(int x1, int x2);
 public:
-    LineBrush(Image* i, int size);
-    void DrawLine(int x, int y, int color);
+    rectanglebrush(Image* i, int size);
+    void DrawRectangle(int x, int y, int color);
     void OnMouseMove(int x, int y, int color) override;
     void OnMouseDown(int x, int y, int color) override;
     void OnMouseUp(int x, int y, int color) override;
 };
 }
-#endif // LINEBRUSH_H
+#endif // RECTANGLEBRUSH_H

@@ -11,6 +11,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Paint
 TEMPLATE = app
 
+QMAKE_CXXFLAGS = -std=c++14
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -19,7 +20,8 @@ SOURCES += main.cpp\
     brush.cpp \
     linebrush.cpp \
     colorfader.cpp \
-    gameoflife.cpp
+    gameoflife.cpp \
+    rectanglebrush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
@@ -27,6 +29,7 @@ HEADERS  += mainwindow.h \
     brush.h \
     linebrush.h \
     colorfader.h \
-    gameoflife.h
+    gameoflife.h \
+    rectanglebrush.h
 
 FORMS    += mainwindow.ui

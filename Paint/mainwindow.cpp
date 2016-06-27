@@ -57,6 +57,13 @@ MainWindow::MainWindow(QWidget *parent) :
        (*activeBrush).OnMouseDown(x, y, color);
        update_label();
     });
+    connect( label_, &MyLabel::onMouseUp, [update_label,this](int x, int y)
+    {
+       std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       int color = (int) GetActiveColorCode();
+       (*activeBrush).OnMouseUp(x, y, color);
+       update_label();
+    });
     //Register Handlers
     connect (ui->clearButton,SIGNAL (released()), this, SLOT (handleButton()));
     connect (ui->redSlider, SIGNAL(valueChanged(int)),this ,SLOT(SlideRed(int)));

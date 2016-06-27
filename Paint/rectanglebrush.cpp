@@ -1,44 +1,38 @@
-#include "linebrush.h"
+#include "rectanglebrush.h"
 #include <iostream>
+namespace my {
 
-namespace my{
-
-LineBrush::LineBrush(Image *i, int size):Brush(i,size)
+rectanglebrush::rectanglebrush(Image *i, int size):Brush(i,size)
 {
-
+}
+void  rectanglebrush::OnMouseMove(int xpos, int ypos, int color)
+{
 }
 
-void  LineBrush::OnMouseMove(int xpos, int ypos, int color)
-{
-    DrawLine(xpos,ypos,color);
-    Emit(xpos,ypos,color);
-
-}
-
-void LineBrush::OnMouseDown(int xpos, int ypos, int color)
+void rectanglebrush::OnMouseDown(int xpos, int ypos, int color)
 {
     lastX = xpos;
     lastY = ypos;
 }
 
-void LineBrush::OnMouseUp(int x, int y, int color){
-
+void rectanglebrush::OnMouseUp(int xpos, int ypos, int color){
+    DrawRectangle(xpos,ypos,color);
 }
 
-int LineBrush::getDirection(int pos, int target){
+int rectanglebrush::getDirection(int pos, int target){
     if(pos > target)
         return -1;
     else
         return 1;
 }
 
-int LineBrush::GetDelta(int x1, int x2){
+int rectanglebrush::GetDelta(int x1, int x2){
     int delta (x2 - x1);
     delta  = std::abs(delta) << 1;
     return delta;
 }
 
-void LineBrush::DrawLine(int xpos, int ypos, int color){
+void rectanglebrush::DrawRectangle(int xpos, int ypos, int color){
 
     int ix = getDirection (xpos, lastX);
     int iy = getDirection (ypos, lastY);
@@ -93,4 +87,5 @@ void LineBrush::DrawLine(int xpos, int ypos, int color){
     lastX = saveXpos;
     lastY = saveYpos;
 }
+
 }

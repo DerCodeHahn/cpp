@@ -18,6 +18,7 @@ public:
     }
     virtual void OnMouseDown(int x, int y, int color);
     virtual void OnMouseMove(int x, int y, int color);
+    virtual void OnMouseUp(int x, int y, int color);
     void SetSize(int size);
     int GetSize();
 
