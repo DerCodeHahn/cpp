@@ -30,11 +30,7 @@ private:
     pixel_t bgColor;
     std::vector<pixel_t>  data_;
 };
-inline uint32_t Image::getPixel(size_t x, size_t y){
-    //if(x < 0 || y < 0 || x >= width()|| y >= height())
-    //    return bgColor;
-    return data_[ y*width_ + x ];
-}
+
 }
 
 #endif // IMAGE_H

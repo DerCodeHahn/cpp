@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
-    , image_       { 2500, 2500 }
+    , image_       { 1000, 1000}
     , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
 {
     ui->setupUi(this);
@@ -25,7 +25,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(rainbowTimer, &QTimer::timeout, this, &MainWindow::UpdateRainbow);
 
     gameOfLifeTimer = new QTimer (this);
-    connect(gameOfLifeTimer, &QTimer::timeout, this, &MainWindow::UpdateRainbow);
+    connect(gameOfLifeTimer, &QTimer::timeout, this, &MainWindow::UpdateGameOfLife);
 
 
     activeBrush = new my::Brush(&image_,1);
@@ -34,7 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseMove, [this](int x, int y)
     {
-       //std::cout << "mouse move: " << x << ", " << y << std::endl;
+       std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        //image_.set_pixel( x, y, color );
        (*activeBrush).OnMouseMove(x, y, color);
@@ -69,6 +69,8 @@ MainWindow::MainWindow(QWidget *parent) :
 void MainWindow::StartGameOfLife(){
     game = my::GameOfLife(&image_, false);
     gameOfLifeTimer->start(500);
+    std::cout << "Game of Life Start " << std::endl;
+
 }
 
 void MainWindow::UpdateGameOfLife() {
@@ -145,7 +147,7 @@ void MainWindow::SetSelectedColor(){
 void MainWindow::UpdateImage()
 {
 
-    std::vector<uint32_t>& data = image_.getData();
+    const std::vector<uint32_t> data = image_.getData();
        auto qimage = QImage(
           reinterpret_cast<uchar const*>(data.data()), image_.width(), image_.height(),
           sizeof(my::Image::pixel_t)*image_.width(), QImage::Format_ARGB32
@@ -171,4 +173,9 @@ std::uint32_t MainWindow::GetActiveColorCode(){
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionDot_triggered()
+{
+    SetBrushDot();
 }

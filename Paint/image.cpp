@@ -24,11 +24,11 @@ namespace my {
         data_[ y*width_ + x ] = pixel;
     }
 
-//    uint32_t Image::getPixel(size_t x, size_t y){
-//        //if(x < 0 || y < 0 || x >= width()|| y >= height())
-//        //    return bgColor;
-//        return data_[ y*width_ + x ];
-//    }
+    uint32_t Image::getPixel(size_t x, size_t y){
+        if(x < 0 || y < 0 || x >= width()|| y >= height())
+            return bgColor;
+        return data_[ y*width_ + x ];
+    }
 
     vector<uint32_t>  Image::getData(){
         vector<uint32_t> dat (width_ * height_);
