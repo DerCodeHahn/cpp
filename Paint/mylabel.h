@@ -15,6 +15,7 @@ public:
 
    void mouseMoveEvent( QMouseEvent* ) override;
    void mousePressEvent( QMouseEvent* ) override;
+   void mouseReleaseEvent( QMouseEvent* ) override;
 
    Q_SIGNAL void onMouseMove(int,int);
    Q_SIGNAL void onMouseDown(int,int);

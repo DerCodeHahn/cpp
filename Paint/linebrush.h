@@ -17,6 +17,7 @@ public:
     void DrawLine(int x, int y, int color);
     void OnMouseMove(int x, int y, int color) override;
     void OnMouseDown(int x, int y, int color) override;
+    void OnMouseUp(int x, int y, int color) override;
 };
 }
 #endif // LINEBRUSH_H

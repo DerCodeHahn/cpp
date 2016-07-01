@@ -26,6 +26,8 @@ public:
 private slots:
     void ChangeSize(int val);
 
+    void on_actionDot_triggered();
+
 private:
     void handleButton();
     void SetBrushDot();

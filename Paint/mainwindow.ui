@@ -16,11 +16,7 @@
   <widget class="QWidget" name="centralWidget">
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QWidget" name="paint" native="true">
-      <zorder>widget</zorder>
-      <zorder>widget</zorder>
-      <zorder>widget</zorder>
-     </widget>
+     <widget class="QWidget" name="paint" native="true"/>
     </item>
     <item>
      <widget class="QWidget" name="widget" native="true">
@@ -279,7 +275,7 @@
      <x>0</x>
      <y>0</y>
      <width>669</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -347,10 +343,16 @@
    <property name="text">
     <string>Dot</string>
    </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+D</string>
+   </property>
   </action>
   <action name="actionLine">
    <property name="text">
     <string>Line</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Shift+L</string>
    </property>
   </action>
  </widget>

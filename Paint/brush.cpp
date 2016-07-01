@@ -20,6 +20,11 @@ void Brush::OnMouseDown(int xpos, int ypos, int color)
     Emit(xpos,ypos,color);
 }
 
+void Brush::OnMouseUp(int xpos, int ypos, int color)
+{
+    Emit(xpos,ypos,color);
+}
+
 void Brush::Emit(int xpos, int ypos, int color)
 {
     if(size_ <= 1){

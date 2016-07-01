@@ -21,6 +21,10 @@ void LineBrush::OnMouseDown(int xpos, int ypos, int color)
     lastY = ypos;
 }
 
+void LineBrush::OnMouseUp(int x, int y, int color){
+
+}
+
 int LineBrush::getDirection(int pos, int target){
     if(pos > target)
         return -1;

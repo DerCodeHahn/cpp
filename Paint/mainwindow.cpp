@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
-    , image_       { 1000, 1000}
+    , image_       { 400, 400}
     , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
 {
     ui->setupUi(this);
@@ -46,6 +46,13 @@ MainWindow::MainWindow(QWidget *parent) :
        std::cout << "mouse down @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseDown(x, y, color);
+       this->UpdateImage();
+    });
+    connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
+    {
+       std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       int color = (int) GetActiveColorCode();
+       (*activeBrush).OnMouseUp(x, y, color);
        this->UpdateImage();
     });
     //Register Handlers
