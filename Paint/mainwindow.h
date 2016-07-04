@@ -6,6 +6,7 @@
 #include "brush.h"
 #include "linebrush.h"
 #include "rectanglebrush.h"
+#include "circlebrush.h"
 #include "colorfader.h"
 #include "gameoflife.h"
 
@@ -34,6 +35,7 @@ private:
     void SetBrushDot();
     void SetBrushLine();
     void SetBrushRectangle();
+    void SetBrushCircle();
     void SlideRed(int val);
     void SlideGreen(int val);
     void SlideBlue(int val);

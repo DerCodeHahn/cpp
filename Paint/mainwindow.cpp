@@ -64,6 +64,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->actionDot, &QAction::triggered, this, &MainWindow::SetBrushDot);
     connect (ui->actionLine, &QAction::triggered, this, &MainWindow::SetBrushLine);
     connect (ui->actionRectangle, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
+    connect (ui->actionCircle_2, &QAction::triggered, this, &MainWindow::SetBrushCircle);
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
 
@@ -126,6 +127,12 @@ void MainWindow::SetBrushRectangle()
 {
     std::cout << "Set Rectangle Brush" << std::endl;
     activeBrush = new my::RectangleBrush(&image_, (*activeBrush).GetSize());
+}
+
+void MainWindow::SetBrushCircle()
+{
+    std::cout << "Set Circle Brush" << std::endl;
+    activeBrush = new my::CircleBrush(&image_, (*activeBrush).GetSize());
 }
 
 void MainWindow::ChangeSize(int val){

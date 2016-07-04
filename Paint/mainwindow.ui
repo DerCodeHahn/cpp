@@ -295,6 +295,7 @@
     <addaction name="actionDot"/>
     <addaction name="actionLine"/>
     <addaction name="actionRectangle_2"/>
+    <addaction name="actionCircle_2"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -359,6 +360,11 @@
   <action name="actionRectangle_2">
    <property name="text">
     <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="actionCircle_2">
+   <property name="text">
+    <string>Circle</string>
    </property>
   </action>
  </widget>

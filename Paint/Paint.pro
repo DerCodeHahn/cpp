@@ -21,7 +21,8 @@ SOURCES += main.cpp\
     linebrush.cpp \
     colorfader.cpp \
     gameoflife.cpp \
-    rectanglebrush.cpp
+    rectanglebrush.cpp \
+    circlebrush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
@@ -30,6 +31,7 @@ HEADERS  += mainwindow.h \
     linebrush.h \
     colorfader.h \
     gameoflife.h \
-    rectanglebrush.h
+    rectanglebrush.h \
+    circlebrush.h
 
 FORMS    += mainwindow.ui
