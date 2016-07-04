@@ -45,8 +45,8 @@ namespace my {
     uint32_t& Image::getPixelRef(size_t x, size_t y){
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
-
-        return data_[tileX + tileY*10 ][ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
+        tile_t& tile = data_[tileX + tileY*10 ];
+        return tile[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
     }
 
     vector<uint32_t>  Image::getData(){

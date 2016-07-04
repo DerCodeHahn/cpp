@@ -31,7 +31,9 @@ void GameOfLife::Update(){
 //return the color of the current Cell
 uint32_t GameOfLife::CheckCell(int x, int y){
     std::vector<uint32_t> surrounding = GetSurrounding(x,y);
-    if(surrounding.size() <= 2 || surrounding.size() >= 4) //Über und Unterpopulation
+    if(surrounding.size() <= 1 || surrounding.size() >= 4) //Über und Unterpopulation
+        return image->getBackgroundColor();
+    if(image->getPixel(x , y) == image->getBackgroundColor() && surrounding.size() != 3)//Tote Zelle beleben
         return image->getBackgroundColor();
 
     return surrounding[0];
@@ -50,7 +52,7 @@ std::vector<uint32_t> GameOfLife::GetSurrounding(int x, int y){
             }
         }
     }
-    //if(surr.size() != 0)
+    //if(surr.size() != 8)
     //    std::cout << " end "<< surr.size() <<std::endl;
 
     return surr;
