@@ -15,7 +15,7 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
-    , image_       { 400, 400}
+    , history       { my::Image(400, 400)}
     , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
 {
     ui->setupUi(this);
@@ -28,15 +28,13 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(gameOfLifeTimer, &QTimer::timeout, this, &MainWindow::UpdateGameOfLife);
 
 
-    activeBrush = new my::Brush(&image_,1);
+    activeBrush = new my::Brush(&history.Current(),1);
     activeColor = QColor(0,0,0,255);
-    //activeBrush = my::Brush(&image_, 3);
 
     connect( label_, &MyLabel::onMouseMove, [this](int x, int y)
     {
        std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
-       //image_.set_pixel( x, y, color );
        (*activeBrush).OnMouseMove(x, y, color);
        this->UpdateImage();
     });
@@ -54,6 +52,7 @@ MainWindow::MainWindow(QWidget *parent) :
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseUp(x, y, color);
        this->UpdateImage();
+       history.Commit("activeBrush");
     });
     //Register Handlers
     connect (ui->clearButton, &QPushButton::clicked, this, &MainWindow::handleButton);
@@ -74,7 +73,7 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::StartGameOfLife(){
-    game = my::GameOfLife(&image_, false);
+    game = my::GameOfLife(&history.Current(), false);
     gameOfLifeTimer->start(500);
     std::cout << "Game of Life Start " << std::endl;
 
@@ -114,12 +113,12 @@ void MainWindow::UpdateRainbow(){
 void MainWindow::SetBrushDot()
 {
     std::cout << "Set standart Brush" << std::endl;
-    activeBrush = new my::Brush(&image_, (*activeBrush).GetSize());
+    activeBrush = new my::Brush(&history.Current(), (*activeBrush).GetSize());
 }
 void MainWindow::SetBrushLine()
 {
     std::cout << "SetLine Brush" << std::endl;
-    activeBrush = new my::LineBrush(&image_, (*activeBrush).GetSize());
+    activeBrush = new my::LineBrush(&history.Current(), (*activeBrush).GetSize());
 }
 
 void MainWindow::ChangeSize(int val){
@@ -153,11 +152,11 @@ void MainWindow::SetSelectedColor(){
 
 void MainWindow::UpdateImage()
 {
-
-    const std::vector<uint32_t> data = image_.getData();
+    my::Image& img = history.Current();
+    const std::vector<uint32_t> data = img.getData();
        auto qimage = QImage(
-          reinterpret_cast<uchar const*>(data.data()), image_.width(), image_.height(),
-          sizeof(my::Image::pixel_t)*image_.width(), QImage::Format_ARGB32
+          reinterpret_cast<uchar const*>(data.data()), img.width(), img.height(),
+          sizeof(my::Image::pixel_t)*img.width(), QImage::Format_ARGB32
        );
     label_->setPixmap(QPixmap::fromImage( qimage ));
 }
@@ -165,7 +164,7 @@ void MainWindow::handleButton()
 {
     uint32_t color = GetActiveColorCode();
     std::cout << "button clear to " << color  << std::endl;
-    image_.clear(color);
+    history.Current().clear(color);
     UpdateImage();
 }
 

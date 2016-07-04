@@ -11,11 +11,10 @@ namespace my {
         int color = 0xAA123456;
         tileSizeX = width / 10;
         tileSizeY = height / 10;
-        data_ = std::vector<tile_t>(100);
+        data_ = std::vector<SharedTile_t>(100);
         for (int tilecount = 0; tilecount < 100; ++tilecount) {
-            vector<pixel_t> tile (tileSizeY * tileSizeX ) ;
-            fill(tile.begin(), tile.end(), color);
-            data_[tilecount] = tile;
+            data_[tilecount].tile = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
+            fill(data_[tilecount].tile->begin(), data_[tilecount].tile->end(), color);
         }
 
     }
@@ -24,28 +23,45 @@ namespace my {
     void Image::clear(pixel_t color)
     {
         for (int TileNr = 0; TileNr < 100; ++TileNr) {
-            fill(data_[TileNr].begin(), data_[TileNr].end(), color);
+            fill(data_[TileNr].tile->begin(), data_[TileNr].tile->end(), color);
         }
+        for(SharedTile_t& tile : data_)
+        {
+            fill(tile.tile->begin(), tile.tile->end(), color);
+        }
+
         bgColor = color;
     }
 
     void Image::set_pixel(size_t x, size_t y, pixel_t pixel){
         if(x < 0 || y < 0 || x >= width()|| y >= height())
             return ;
-        getPixelRef(x,y) = pixel;
+        int tileX = x / tileSizeX;
+        int tileY = y / tileSizeY;
+        SharedTile_t& tile = data_[tileX + tileY*10 ];
+        if(!tile.editFlag)
+        {
+            tile.editFlag = true;
+            tile.tile = make_shared<tile_t>(*tile.tile);
+        }
+        (*tile.tile)[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ] = pixel;
+
     }
 
     uint32_t Image::getPixel(size_t x, size_t y){
         if(x < 0 || y < 0 || x >= width()|| y >= height())
             return bgColor;
+        int tileX = x / tileSizeX;
+        int tileY = y / tileSizeY;
+        tile_t& tile = (*data_[tileX + tileY*10 ].tile);
+        return tile[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
 
-        return getPixelRef(x,y);
     }
 
     uint32_t& Image::getPixelRef(size_t x, size_t y){
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
-        tile_t& tile = data_[tileX + tileY*10 ];
+        tile_t& tile = *data_[tileX + tileY*10 ].tile;
         return tile[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
     }
 

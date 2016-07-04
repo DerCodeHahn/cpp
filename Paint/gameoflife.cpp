@@ -15,15 +15,11 @@ void GameOfLife::Update(){
     for (int x = 0; x < image->width(); ++x) {
         for (int y = 0; y < image->height(); ++y) {
             uint32_t pixColor = newImage.getPixel(x,y);
-            //if(pixColor != newImage.getBackgroundColor())
-            //{
                 uint32_t color = CheckCell(x,y);
                 if(pixColor != color){
                     newImage.set_pixel(x,y,color);
 
                 }
-
-            //}
         }
     }
     *image = newImage;

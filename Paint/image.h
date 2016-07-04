@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <cstdint>
+#include <memory>
 
 using std::size_t;
 namespace my
@@ -13,14 +14,16 @@ class Image
 {
 public:
 
-    using pixel_t = uint32_t;
+    using pixel_t = std::uint32_t;
     using tile_t = std::vector<pixel_t>;
+
+    struct SharedTile_t { bool editFlag = false; std::shared_ptr<tile_t> tile;};
 
 
     Image( size_t width = {} , size_t height = {} );
 
     void set_pixel( size_t x, size_t y, pixel_t pixel );
-    uint32_t getPixel(size_t x, size_t y);
+    pixel_t getPixel(size_t x, size_t y);
 
     auto width() const -> size_t          { return width_; }
     auto height() const -> size_t          { return height_; }
@@ -33,7 +36,7 @@ private:
     size_t  width_;
     size_t  height_;
     pixel_t bgColor;
-    std::vector<tile_t>  data_;
+    std::vector<SharedTile_t>  data_;
     pixel_t& getPixelRef(size_t x, size_t y);
 };
 
