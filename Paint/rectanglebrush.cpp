@@ -1,38 +1,38 @@
 #include "rectanglebrush.h"
 #include <iostream>
-namespace my {
+namespace my{
 
-rectanglebrush::rectanglebrush(Image *i, int size):Brush(i,size)
+RectangleBrush::RectangleBrush(Image *i, int size):Brush(i,size)
 {
 }
-void  rectanglebrush::OnMouseMove(int xpos, int ypos, int color)
+void  RectangleBrush::OnMouseMove(int xpos, int ypos, int color)
 {
 }
 
-void rectanglebrush::OnMouseDown(int xpos, int ypos, int color)
+void RectangleBrush::OnMouseDown(int xpos, int ypos, int color)
 {
     lastX = xpos;
     lastY = ypos;
 }
 
-void rectanglebrush::OnMouseUp(int xpos, int ypos, int color){
+void RectangleBrush::OnMouseUp(int xpos, int ypos, int color){
     DrawRectangle(xpos,ypos,color);
 }
 
-int rectanglebrush::getDirection(int pos, int target){
+int RectangleBrush::getDirection(int pos, int target){
     if(pos > target)
         return -1;
     else
         return 1;
 }
 
-int rectanglebrush::GetDelta(int x1, int x2){
+int RectangleBrush::GetDelta(int x1, int x2){
     int delta (x2 - x1);
     delta  = std::abs(delta) << 1;
     return delta;
 }
 
-void rectanglebrush::DrawRectangle(int xpos, int ypos, int color){
+void RectangleBrush::DrawRectangle(int xpos, int ypos, int color){
 
     int ix = getDirection (xpos, lastX);
     int iy = getDirection (ypos, lastY);

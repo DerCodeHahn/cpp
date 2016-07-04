@@ -294,6 +294,7 @@
     </property>
     <addaction name="actionDot"/>
     <addaction name="actionLine"/>
+    <addaction name="actionRectangle_2"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -353,6 +354,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+L</string>
+   </property>
+  </action>
+  <action name="actionRectangle_2">
+   <property name="text">
+    <string>Rectangle</string>
    </property>
   </action>
  </widget>

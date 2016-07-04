@@ -11,6 +11,8 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Paint
 TEMPLATE = app
 
+QMAKE_CXXFLAGS = -std=c++14
+
 SOURCES += main.cpp\
         mainwindow.cpp \
     image.cpp \

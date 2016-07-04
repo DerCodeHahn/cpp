@@ -50,7 +50,7 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
     {
-       std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       std::cout << "mouse up @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseUp(x, y, color);
        this->UpdateImage();
@@ -63,6 +63,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->sizeBox, SIGNAL(valueChanged(int)),this ,SLOT(ChangeSize(int)));
     connect (ui->actionDot, &QAction::triggered, this, &MainWindow::SetBrushDot);
     connect (ui->actionLine, &QAction::triggered, this, &MainWindow::SetBrushLine);
+    connect (ui->actionRectangle, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
 
@@ -120,6 +121,11 @@ void MainWindow::SetBrushLine()
 {
     std::cout << "SetLine Brush" << std::endl;
     activeBrush = new my::LineBrush(&image_, (*activeBrush).GetSize());
+}
+void MainWindow::SetBrushRectangle()
+{
+    std::cout << "Set Rectangle Brush" << std::endl;
+    activeBrush = new my::RectangleBrush(&image_, (*activeBrush).GetSize());
 }
 
 void MainWindow::ChangeSize(int val){
