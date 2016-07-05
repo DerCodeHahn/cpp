@@ -3,7 +3,7 @@
 
 namespace my{
 
-LineBrush::LineBrush(Image *i, int size):Brush(i,size)
+LineBrush::LineBrush(History *h, int size):Brush(h,size)
 {
 
 }

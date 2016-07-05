@@ -1,5 +1,6 @@
 #include "image.h"
 #include <algorithm>
+#include <iostream>
 
 using namespace std;
 
@@ -22,15 +23,23 @@ namespace my {
     //Clear image with a color
     void Image::clear(pixel_t color)
     {
-        for (int TileNr = 0; TileNr < 100; ++TileNr) {
-            fill(data_[TileNr].tile->begin(), data_[TileNr].tile->end(), color);
-        }
         for(SharedTile_t& tile : data_)
         {
+            tile.tile = make_shared<tile_t>(*tile.tile);
             fill(tile.tile->begin(), tile.tile->end(), color);
+            tile.editFlag = false;
         }
 
         bgColor = color;
+    }
+
+    void Image::ClearFlags(){
+        for(SharedTile_t& t:data_)
+        {
+            t.editFlag = false;
+        }
+        std::cout << "Cleared Flags" << std::endl;
+
     }
 
     void Image::set_pixel(size_t x, size_t y, pixel_t pixel){
@@ -41,8 +50,11 @@ namespace my {
         SharedTile_t& tile = data_[tileX + tileY*10 ];
         if(!tile.editFlag)
         {
+            shared_ptr<tile_t> newTile = make_shared<tile_t>(*tile.tile);
+            tile.tile = newTile;
             tile.editFlag = true;
-            tile.tile = make_shared<tile_t>(*tile.tile);
+            std::cout << "Create New Tile @ " << tileX << ", " << tileY << std::endl;
+
         }
         (*tile.tile)[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ] = pixel;
 

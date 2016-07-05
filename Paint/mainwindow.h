@@ -5,6 +5,8 @@
 #include "image.h"
 #include "brush.h"
 #include "linebrush.h"
+#include "rectanglebrush.h"
+#include "circlebrush.h"
 #include "colorfader.h"
 #include "gameoflife.h"
 #include "history.h"
@@ -33,6 +35,8 @@ private:
     void handleButton();
     void SetBrushDot();
     void SetBrushLine();
+    void SetBrushRectangle();
+    void SetBrushCircle();
     void SlideRed(int val);
     void SlideGreen(int val);
     void SlideBlue(int val);
@@ -40,6 +44,7 @@ private:
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
+    void Undo();
     Ui::MainWindow *ui;
     my::GameOfLife game;
     QTimer *rainbowTimer;

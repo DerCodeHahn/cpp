@@ -1,19 +1,21 @@
 #ifndef BRUSH_H
 #define BRUSH_H
 
-#include "image.h"
+#include "history.h"
 namespace my
 {
 
 class Brush
 {
 protected:
-    Image* img_;
+    History* history;
+    int lastX;
+    int lastY;
     int size_;
     void Emit(int x, int y, int color);
 public:
     Brush();
-    Brush(Image* i, int size):img_(i), size_(size)
+    Brush(History* h, int size):history(h), size_(size)
     {
     }
     virtual void OnMouseDown(int x, int y, int color);

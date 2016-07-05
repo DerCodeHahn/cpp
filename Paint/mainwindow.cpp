@@ -28,12 +28,12 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(gameOfLifeTimer, &QTimer::timeout, this, &MainWindow::UpdateGameOfLife);
 
 
-    activeBrush = new my::Brush(&history.Current(),1);
+    activeBrush = new my::Brush(&history,1);
     activeColor = QColor(0,0,0,255);
 
     connect( label_, &MyLabel::onMouseMove, [this](int x, int y)
     {
-       std::cout << "mouse move: " << x << ", " << y << std::endl;
+       //std::cout << "mouse move: " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseMove(x, y, color);
        this->UpdateImage();
@@ -48,8 +48,9 @@ MainWindow::MainWindow(QWidget *parent) :
     });
     connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
     {
-       std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       std::cout << "mouse up @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
+
        (*activeBrush).OnMouseUp(x, y, color);
        this->UpdateImage();
        history.Commit("activeBrush");
@@ -62,13 +63,23 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->sizeBox, SIGNAL(valueChanged(int)),this ,SLOT(ChangeSize(int)));
     connect (ui->actionDot, &QAction::triggered, this, &MainWindow::SetBrushDot);
     connect (ui->actionLine, &QAction::triggered, this, &MainWindow::SetBrushLine);
+    connect (ui->actionRectangle, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
+    connect (ui->actionCircle, &QAction::triggered, this, &MainWindow::SetBrushCircle);
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
+    connect (ui->actionBack, &QAction::triggered, this, &MainWindow::Undo);
 
     label_->setParent(ui->paint);
     ui->selectedColor->setAutoFillBackground(true);
     SetSelectedColor();
     //update_label();
+    UpdateImage();
+}
+
+void MainWindow::Undo(){
+    std::cout << "Undo" << std::endl;
+
+    history.Undo();
     UpdateImage();
 }
 
@@ -113,12 +124,23 @@ void MainWindow::UpdateRainbow(){
 void MainWindow::SetBrushDot()
 {
     std::cout << "Set standart Brush" << std::endl;
-    activeBrush = new my::Brush(&history.Current(), (*activeBrush).GetSize());
+    activeBrush = new my::Brush(&history, (*activeBrush).GetSize());
 }
 void MainWindow::SetBrushLine()
 {
     std::cout << "SetLine Brush" << std::endl;
-    activeBrush = new my::LineBrush(&history.Current(), (*activeBrush).GetSize());
+    activeBrush = new my::LineBrush(&history, (*activeBrush).GetSize());
+}
+void MainWindow::SetBrushRectangle()
+{
+    std::cout << "Set Rectangle Brush" << std::endl;
+    activeBrush = new my::RectangleBrush(&history, (*activeBrush).GetSize());
+}
+
+void MainWindow::SetBrushCircle()
+{
+    std::cout << "Set Circle Brush" << std::endl;
+    activeBrush = new my::CircleBrush(&history, (*activeBrush).GetSize());
 }
 
 void MainWindow::ChangeSize(int val){

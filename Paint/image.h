@@ -30,6 +30,7 @@ public:
     std::vector<pixel_t> getData();// const   -> pixel_t const*   { return data_.data(); }
     void clear(pixel_t color);
     pixel_t getBackgroundColor();
+    void ClearFlags();
 private:
     int tileSizeX;
     int tileSizeY;

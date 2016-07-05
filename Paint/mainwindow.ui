@@ -275,7 +275,7 @@
      <x>0</x>
      <y>0</y>
      <width>669</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -283,6 +283,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionBack"/>
     <addaction name="action_2"/>
     <addaction name="actionSave_as"/>
     <addaction name="separator"/>
@@ -353,6 +354,14 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+Shift+L</string>
+   </property>
+  </action>
+  <action name="actionBack">
+   <property name="text">
+    <string>Back</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
    </property>
   </action>
  </widget>
