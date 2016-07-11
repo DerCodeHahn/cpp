@@ -83,7 +83,7 @@ void MainWindow::Undo(){
 }
 
 void MainWindow::StartGameOfLife(){
-    game = my::GameOfLife(&history.Current(), false);
+    game = my::GameOfLife( false);
     gameOfLifeTimer->start(500);
     std::cout << "Game of Life Start " << std::endl;
 
@@ -91,7 +91,7 @@ void MainWindow::StartGameOfLife(){
 
 void MainWindow::UpdateGameOfLife() {
     auto start = std::chrono::steady_clock::now();
-    game.Update();
+    game.Update(&history.Current());
     auto duration = std::chrono::duration_cast< std::chrono::milliseconds   >(std::chrono::steady_clock::now() - start);
 
     std::cout << "Game of Life Update "  << duration.count() << " ms "<< std::endl;
@@ -168,8 +168,6 @@ void MainWindow::SetSelectedColor(){
     pal.setColor(QPalette::Background, activeColor);
     ui->selectedColor->setPalette(pal);
 }
-
-
 
 void MainWindow::UpdateImage()
 {

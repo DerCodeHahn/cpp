@@ -48,7 +48,7 @@ namespace my {
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
         SharedTile_t& tile = data_[tileX + tileY*10 ];
-        if(!tile.editFlag)
+        if(!tile.tile.unique())
         {
             shared_ptr<tile_t> newTile = make_shared<tile_t>(*tile.tile);
             tile.tile = newTile;

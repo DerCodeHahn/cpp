@@ -15,7 +15,7 @@ namespace my {
 
         Step lastStep = history[history.size() - 1];
         lastStep.img.ClearFlags();
-        Step newStep = {lastStep.img, msg}; // Error
+        Step newStep = {lastStep.img, msg};
 
         history.push_back(newStep);
         std::cout << "Commit " << history.size() << " [" << msg <<"]"<< std::endl;

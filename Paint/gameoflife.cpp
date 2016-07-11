@@ -1,47 +1,62 @@
 #include "gameoflife.h"
+#include "thread"
 
 namespace my {
 GameOfLife::GameOfLife(){}
 
-GameOfLife::GameOfLife(Image* img, bool multi):
-    image(img),
+GameOfLife::GameOfLife(bool multi):
     multipleLifeForms(multi)
 {
 
 }
 
-void GameOfLife::Update(){
-    newImage = Image(*image);
-    for (int x = 0; x < image->width(); ++x) {
-        for (int y = 0; y < image->height(); ++y) {
-            uint32_t pixColor = newImage.getPixel(x,y);
-                uint32_t color = CheckCell(x,y);
+void GameOfLife::Update(Image* img){
+    Image newImage = Image(*img);
+    //FragUpdate(0,0,img->width(),img->height(), &newImage, img);
+    std::thread t1 ([&](){this->FragUpdate(0,0,(int)img->width()/ 2, (int)img->height() / 2, &newImage, img);});
+    std::thread t2 ([&](){this->FragUpdate(img->width()/ 2,0, img->width(), img->height(), &newImage, img);});
+    std::thread t3 ([&](){this->FragUpdate(0, img->height() / 2, img->width(), img->height(), &newImage, img);});
+    std::thread t4 ([&](){this->FragUpdate(img->width()/ 2, img->height() / 2, img->width(), img->height(), &newImage, img);});
+
+    t1.join();
+    t2.join();
+    t3.join();
+    t4.join();
+     //*img = newImage;
+
+}
+
+void GameOfLife::FragUpdate(int xx, int yy, int xmax, int ymax, Image* inImg, Image* outImg){
+    for (int x = xx; x < xmax; ++x) {
+        for (int y = yy; y < ymax; ++y) {
+            uint32_t pixColor = inImg->getPixel(x,y);
+                uint32_t color = CheckCell(x,y, inImg);
                 if(pixColor != color){
-                    newImage.set_pixel(x,y,color);
+                    outImg->set_pixel(x,y,color);
 
                 }
         }
     }
-    *image = newImage;
 }
+
 //return the color of the current Cell
-uint32_t GameOfLife::CheckCell(int x, int y){
-    std::vector<uint32_t> surrounding = GetSurrounding(x,y);
+uint32_t GameOfLife::CheckCell(int x, int y, Image* inImg){
+    std::vector<uint32_t> surrounding = GetSurrounding(x,y, inImg);
     if(surrounding.size() <= 1 || surrounding.size() >= 4) //Über und Unterpopulation
-        return image->getBackgroundColor();
-    if(image->getPixel(x , y) == image->getBackgroundColor() && surrounding.size() != 3)//Tote Zelle beleben
-        return image->getBackgroundColor();
+        return inImg->getBackgroundColor();
+    if(inImg->getPixel(x , y) == inImg->getBackgroundColor() && surrounding.size() != 3)//Tote Zelle beleben
+        return inImg->getBackgroundColor();
 
     return surrounding[0];
 }
 
-std::vector<uint32_t> GameOfLife::GetSurrounding(int x, int y){
+std::vector<uint32_t> GameOfLife::GetSurrounding(int x, int y, Image* inImg){
     std::vector<uint32_t> surr;
     for (int xx = -1; xx <= 1; xx++) {
         for (int yy = -1; yy <= 1; yy++) {
             if(!(xx == 0 && yy == 0)){
-                uint32_t pixelColor = image->getPixel(x + xx,y + yy);
-                if(pixelColor != image->getBackgroundColor())
+                uint32_t pixelColor = inImg->getPixel(x + xx,y + yy);
+                if(pixelColor != inImg->getBackgroundColor())
                 {
                     surr.push_back(pixelColor);
                 }
