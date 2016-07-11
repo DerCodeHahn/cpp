@@ -1,12 +1,14 @@
 #include "history.h"
 #include <cassert>
 
+#include <iostream>
+
 namespace my {
     History::History(Image i):history(0)
     {
         Step s {i,"initial Pic"};
         history.push_back(s);
-        Commit("INit");
+        Commit("first Save");
     }
 
     void History::Commit(std::string msg){
@@ -16,16 +18,19 @@ namespace my {
         Step newStep = {lastStep.img, msg}; // Error
 
         history.push_back(newStep);
+        std::cout << "Commit " << history.size() << " [" << msg <<"]"<< std::endl;
     }
 
     Image& History::Current(){
-        Step& lastStep = history[history.size() - 1];
+
+        Step& lastStep = history[history.size()-1];
         return lastStep.img ;
     }
 
     void History::Undo(){
-        if(history.size() > 1)
+        if(history.size() > 2)
             history.pop_back();
+        std::cout << "Undo now at "<< history.size()<< ((Step)history[history.size() - 1]).Message << std::endl;
         //history.erase(history.end());
     }
 }

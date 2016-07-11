@@ -41,14 +41,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseDown, [this](int x, int y)
     {
-       std::cout << "mouse down @ " << x << ", " << y << std::endl;
+       //std::cout << "mouse down @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseDown(x, y, color);
        this->UpdateImage();
     });
     connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
     {
-       std::cout << "mouse up @ " << x << ", " << y << std::endl;
+       //std::cout << "mouse up @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
 
        (*activeBrush).OnMouseUp(x, y, color);
@@ -77,8 +77,6 @@ MainWindow::MainWindow(QWidget *parent) :
 }
 
 void MainWindow::Undo(){
-    std::cout << "Undo" << std::endl;
-
     history.Undo();
     UpdateImage();
 }
@@ -149,17 +147,17 @@ void MainWindow::ChangeSize(int val){
 
 //Gets Triggert if the one of the sliders is moved
 void MainWindow::SlideRed(int val){
-    std::cout << "red slide " << val << std::endl;
+    //std::cout << "red slide " << val << std::endl;
     activeColor.setRed(val);
     SetSelectedColor();
 }
 void MainWindow::SlideGreen(int val){
-    std::cout << "green slide " << val << std::endl;
+    //std::cout << "green slide " << val << std::endl;
     activeColor.setGreen(val);
     SetSelectedColor();
 }
 void MainWindow::SlideBlue(int val){
-    std::cout << "blue slide " << val << std::endl;
+    //std::cout << "blue slide " << val << std::endl;
     activeColor.setBlue(val);
     SetSelectedColor();
 }
@@ -185,8 +183,9 @@ void MainWindow::UpdateImage()
 void MainWindow::handleButton()
 {
     uint32_t color = GetActiveColorCode();
-    std::cout << "button clear to " << color  << std::endl;
+    //std::cout << "button clear to " << color  << std::endl;
     history.Current().clear(color);
+    history.Commit("Clear");
     UpdateImage();
 }
 
