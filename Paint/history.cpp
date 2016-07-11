@@ -22,13 +22,12 @@ namespace my {
     }
 
     Image& History::Current(){
-
         Step& lastStep = history[history.size()-1];
         return lastStep.img ;
     }
 
     void History::Undo(){
-        if(history.size() > 2)
+        if(history.size() > 1)
             history.pop_back();
         std::cout << "Undo now at "<< history.size()<< ((Step)history[history.size() - 1]).Message << std::endl;
         //history.erase(history.end());

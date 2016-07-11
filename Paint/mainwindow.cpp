@@ -45,6 +45,8 @@ MainWindow::MainWindow(QWidget *parent) :
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseDown(x, y, color);
        this->UpdateImage();
+
+       history.Commit("activeBrush");
     });
     connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
     {
@@ -53,7 +55,6 @@ MainWindow::MainWindow(QWidget *parent) :
 
        (*activeBrush).OnMouseUp(x, y, color);
        this->UpdateImage();
-       history.Commit("activeBrush");
     });
     //Register Handlers
     connect (ui->clearButton, &QPushButton::clicked, this, &MainWindow::handleButton);
@@ -184,8 +185,9 @@ void MainWindow::handleButton()
 {
     uint32_t color = GetActiveColorCode();
     //std::cout << "button clear to " << color  << std::endl;
-    history.Current().clear(color);
     history.Commit("Clear");
+    history.Current().clear(color);
+
     UpdateImage();
 }
 
