@@ -14,7 +14,7 @@ namespace my {
     void History::Commit(std::string msg){
 
         Step lastStep = history[history.size() - 1];
-        lastStep.img.ClearFlags();
+        //lastStep.img.ClearFlags();
         Step newStep = {lastStep.img, msg};
 
         history.push_back(newStep);

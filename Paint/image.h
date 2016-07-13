@@ -5,6 +5,7 @@
 #include <vector>
 #include <cstdint>
 #include <memory>
+#include <QImage>
 
 using std::size_t;
 namespace my
@@ -20,25 +21,28 @@ public:
     struct SharedTile_t { bool editFlag = false; std::shared_ptr<tile_t> tile;};
 
 
-    Image( size_t width = {} , size_t height = {} );
+    Image( int width = {} , int height = {} );
 
-    void set_pixel( size_t x, size_t y, pixel_t pixel );
-    pixel_t getPixel(size_t x, size_t y);
+    void set_pixel( int x, int y, pixel_t pixel );
+    pixel_t getPixel(int x, int y);
 
-    auto width() const -> size_t          { return width_; }
-    auto height() const -> size_t          { return height_; }
+    int width() { return width_; }
+    int height()  { return height_; }
+
+
     std::vector<pixel_t> getData();// const   -> pixel_t const*   { return data_.data(); }
     void clear(pixel_t color);
     pixel_t getBackgroundColor();
     void ClearFlags();
+    void SetData(QImage i); //
 private:
     int tileSizeX;
     int tileSizeY;
-    size_t  width_;
-    size_t  height_;
+    int  width_;
+    int  height_;
     pixel_t bgColor;
     std::vector<SharedTile_t>  data_;
-    pixel_t& getPixelRef(size_t x, size_t y);
+    pixel_t& getPixelRef(int x, int y);
 };
 
 }

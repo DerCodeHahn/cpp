@@ -45,6 +45,7 @@ private:
     void StartGameOfLife();
     void UpdateGameOfLife();
     void Undo();
+    void OpenFile();
     Ui::MainWindow *ui;
     my::GameOfLife game;
     QTimer *rainbowTimer;

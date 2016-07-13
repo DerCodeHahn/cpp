@@ -7,7 +7,9 @@
 #include <QTimer>
 #include <iostream>
 #include <chrono>
-
+#include <QFileDialog>
+#include <QFile>
+#include <QImageReader>
 #include <QCoreApplication>
 
 
@@ -69,6 +71,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
     connect (ui->actionBack, &QAction::triggered, this, &MainWindow::Undo);
+    connect (ui->actionOpen, &QAction::triggered, this, &MainWindow::OpenFile);
 
     label_->setParent(ui->paint);
     ui->selectedColor->setAutoFillBackground(true);
@@ -107,6 +110,18 @@ void MainWindow::ToggleRainbowMode(bool checked){
     {
         rainbowTimer->stop();
     }
+}
+void MainWindow::OpenFile(){
+    QString fileName = QFileDialog::getOpenFileName(this,
+        tr("Open Image"), "", tr("Image Files (*.png *.jpg *.bmp)"));
+    QImageReader reader(fileName);
+    QImage img = reader.read();
+
+    history.Commit("LoadImg");
+    history.Current().SetData(img);
+    UpdateImage();
+    //label_->setPixmap(QPixmap::fromImage( img ));
+    label_->resize(img.width(), img.height());
 }
 
 void MainWindow::UpdateRainbow(){
