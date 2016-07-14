@@ -44,7 +44,7 @@ void CircleBrush::DrawCircle(int xpos, int ypos, int color){
         d=dY;
     }
 
-    for(unsigned i=0; i<=d; ++i){
+    for(unsigned i=0; i<=d*2; ++i){
         int tmpX = (int) d*sin(((double)i/(double)d) * (M_PI/2.0));
         int tmpY = (int) d*cos(((double)i/(double)d) * (M_PI/2.0));
         Emit(lastX+tmpX,lastY+tmpY,color);
