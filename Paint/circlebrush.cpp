@@ -10,12 +10,16 @@ CircleBrush::CircleBrush(History *h, int size):Brush(h,size)
 }
 void  CircleBrush::OnMouseMove(int xpos, int ypos, int color)
 {
+    history->Undo();
+    history->Commit("");
+    DrawCircle(xpos,ypos,color);
 }
 
 void CircleBrush::OnMouseDown(int xpos, int ypos, int color)
 {
     lastX = xpos;
     lastY = ypos;
+    DrawCircle(xpos,ypos,color);
 }
 
 void CircleBrush::OnMouseUp(int xpos, int ypos, int color){
@@ -38,12 +42,7 @@ int CircleBrush::GetDelta(int x1, int x2){
 void CircleBrush::DrawCircle(int xpos, int ypos, int color){
     int dX = GetDelta(lastX,xpos);
     int dY = GetDelta(lastY,ypos);
-    int d;
-    if(dX <= dY){
-        d=dX;
-    }else{
-        d=dY;
-    }
+    int d = sqrt (pow(dX,2.0)+pow(dY,2.0));
 
     for(unsigned i=0; i<=d*2; ++i){
         int tmpX = (int) d*sin(((double)i/(double)d) * (M_PI/2.0));

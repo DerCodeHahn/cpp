@@ -1,6 +1,7 @@
 #include "image.h"
 #include <algorithm>
 #include <iostream>
+#include <QColor>
 
 
 using namespace std;

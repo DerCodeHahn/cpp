@@ -7,12 +7,17 @@ RectangleBrush::RectangleBrush(History *h, int size):Brush(h,size)
 }
 void  RectangleBrush::OnMouseMove(int xpos, int ypos, int color)
 {
+      history->Undo();
+      history->Commit("");
+      DrawRectangle(xpos, ypos, color);
+
 }
 
 void RectangleBrush::OnMouseDown(int xpos, int ypos, int color)
 {
     lastX = xpos;
     lastY = ypos;
+    DrawRectangle(xpos, ypos, color);
 }
 
 void RectangleBrush::OnMouseUp(int xpos, int ypos, int color){
