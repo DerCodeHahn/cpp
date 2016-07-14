@@ -8,12 +8,11 @@ class CircleBrush:public Brush
 {
 
 private:
-    int lastX;
-    int lastY;
+
     int getDirection(int pos, int target);
     int GetDelta(int x1, int x2);
 public:
-    CircleBrush(Image* i, int size);
+    CircleBrush(History* h, int size);
     void DrawCircle(int x, int y, int color);
     void OnMouseMove(int x, int y, int color) override;
     void OnMouseDown(int x, int y, int color) override;

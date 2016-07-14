@@ -275,7 +275,7 @@
      <x>0</x>
      <y>0</y>
      <width>669</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -283,6 +283,7 @@
      <string>File</string>
     </property>
     <addaction name="actionOpen"/>
+    <addaction name="actionBack"/>
     <addaction name="action_2"/>
     <addaction name="actionSave_as"/>
     <addaction name="separator"/>
@@ -294,8 +295,6 @@
     </property>
     <addaction name="actionDot"/>
     <addaction name="actionLine"/>
-    <addaction name="actionRectangle_2"/>
-    <addaction name="actionCircle_2"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -357,14 +356,12 @@
     <string>Ctrl+Shift+L</string>
    </property>
   </action>
-  <action name="actionRectangle_2">
+  <action name="actionBack">
    <property name="text">
-    <string>Rectangle</string>
+    <string>Back</string>
    </property>
-  </action>
-  <action name="actionCircle_2">
-   <property name="text">
-    <string>Circle</string>
+   <property name="shortcut">
+    <string>Ctrl+Z</string>
    </property>
   </action>
  </widget>

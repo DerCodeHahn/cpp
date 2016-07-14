@@ -8,12 +8,10 @@ namespace my{
 class LineBrush:public Brush
 {
 private:
-    int lastX;
-    int lastY;
     int getDirection(int pos, int target);
     int GetDelta(int x1, int x2);
 public:
-    LineBrush(Image* i, int size);
+    LineBrush(History* h, int size);
     void DrawLine(int x, int y, int color);
     void OnMouseMove(int x, int y, int color) override;
     void OnMouseDown(int x, int y, int color) override;

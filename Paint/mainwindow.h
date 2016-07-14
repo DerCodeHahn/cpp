@@ -9,6 +9,7 @@
 #include "circlebrush.h"
 #include "colorfader.h"
 #include "gameoflife.h"
+#include "history.h"
 
 namespace Ui {
 class MainWindow;
@@ -18,7 +19,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
     class MyLabel*  label_;
-    my::Image       image_;
+    my::History     history;
     my::Brush*      activeBrush;
 public:
     explicit MainWindow(QWidget *parent = 0);
@@ -43,6 +44,8 @@ private:
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
+    void Undo();
+    void OpenFile();
     Ui::MainWindow *ui;
     my::GameOfLife game;
     QTimer *rainbowTimer;

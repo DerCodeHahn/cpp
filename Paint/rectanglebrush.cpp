@@ -2,7 +2,7 @@
 #include <iostream>
 namespace my{
 
-RectangleBrush::RectangleBrush(Image *i, int size):Brush(i,size)
+RectangleBrush::RectangleBrush(History *h, int size):Brush(h,size)
 {
 }
 void  RectangleBrush::OnMouseMove(int xpos, int ypos, int color)

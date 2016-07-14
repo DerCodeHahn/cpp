@@ -28,7 +28,7 @@ void Brush::OnMouseUp(int xpos, int ypos, int color)
 void Brush::Emit(int xpos, int ypos, int color)
 {
     if(size_ <= 1){
-        (*img_).set_pixel(xpos,ypos,color);
+        history->Current().set_pixel(xpos,ypos,color);
         return;
     }
     else{
@@ -36,7 +36,7 @@ void Brush::Emit(int xpos, int ypos, int color)
         {
             for(int x = -size_/ 2; x< size_ / 2;x++)
             {
-                (*img_).set_pixel(xpos + x,ypos + y,color);
+                history->Current().set_pixel(xpos + x,ypos + y,color);
             }
         }
     }

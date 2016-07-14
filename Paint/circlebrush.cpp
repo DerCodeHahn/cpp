@@ -1,10 +1,11 @@
 #include "circlebrush.h"
 
 #include <iostream>
+#define _USE_MATH_DEFINES //Needed to work on Windows
 #include <math.h>
 namespace my{
 
-CircleBrush::CircleBrush(Image *i, int size):Brush(i,size)
+CircleBrush::CircleBrush(History *h, int size):Brush(h,size)
 {
 }
 void  CircleBrush::OnMouseMove(int xpos, int ypos, int color)

@@ -11,14 +11,13 @@ class GameOfLife
 {
 private:
     bool multipleLifeForms;
-    Image* image;
-    Image newImage;
-    uint32_t CheckCell(int x, int y);
-    std::vector<uint32_t> GetSurrounding(int x, int y);
+    uint32_t CheckCell(int x, int y, Image* inImg);
+    std::vector<uint32_t> GetSurrounding(int x, int y, Image* inImg);
+    void FragUpdate(int x, int y, int width, int height, Image* inImg, Image* outImg);
 public:
     GameOfLife();
-    GameOfLife(Image* img, bool multi);
-    void Update();
+    GameOfLife( bool multi);
+    void Update(Image* img);
 
 };
 }
