@@ -44,6 +44,7 @@ private:
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
+    void Save();
     void Undo();
     void OpenFile();
     Ui::MainWindow *ui;

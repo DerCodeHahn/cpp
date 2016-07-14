@@ -72,12 +72,21 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
     connect (ui->actionBack, &QAction::triggered, this, &MainWindow::Undo);
     connect (ui->actionOpen, &QAction::triggered, this, &MainWindow::OpenFile);
+    connect (ui->action_2, &QAction::triggered, this, &MainWindow::Save);
 
     label_->setParent(ui->paint);
     ui->selectedColor->setAutoFillBackground(true);
     SetSelectedColor();
     //update_label();
     UpdateImage();
+}
+
+void MainWindow::Save(){
+    QString name = QFileDialog::getSaveFileName(this, tr("Save File"),
+                                           "/home/jana/untitled.jpg",
+                                           tr("Images (*.png *.xpm *.jpg)"));
+    label_->pixmap()->save(name,0, -1);
+
 }
 
 void MainWindow::Undo(){
