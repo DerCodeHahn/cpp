@@ -7,6 +7,7 @@
 #include "linebrush.h"
 #include "rectanglebrush.h"
 #include "circlebrush.h"
+#include "straightlinebrush.h"
 #include "colorfader.h"
 #include "gameoflife.h"
 #include "history.h"
@@ -37,6 +38,7 @@ private:
     void SetBrushLine();
     void SetBrushRectangle();
     void SetBrushCircle();
+    void SetBrushStraightLine();
     void SlideRed(int val);
     void SlideGreen(int val);
     void SlideBlue(int val);

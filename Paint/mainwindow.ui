@@ -298,7 +298,7 @@
      <x>0</x>
      <y>0</y>
      <width>669</width>
-     <height>21</height>
+     <height>27</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
@@ -318,6 +318,9 @@
     </property>
     <addaction name="actionDot"/>
     <addaction name="actionLine"/>
+    <addaction name="actionStraight_LIne"/>
+    <addaction name="actionRectangle_2"/>
+    <addaction name="actionCircle_2"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -354,16 +357,28 @@
    </property>
   </action>
   <action name="actionRectangle">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/rectangle.png</normaloff>:/icons/rectangle.png</iconset>
+   </property>
    <property name="text">
-    <string>Line</string>
+    <string>Rectangle</string>
    </property>
   </action>
   <action name="actionCircle">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/circle.png</normaloff>:/icons/circle.png</iconset>
+   </property>
    <property name="text">
-    <string>Dot</string>
+    <string>Circle</string>
    </property>
   </action>
   <action name="actionDot">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/dot.png</normaloff>:/icons/dot.png</iconset>
+   </property>
    <property name="text">
     <string>Dot</string>
    </property>
@@ -372,6 +387,10 @@
    </property>
   </action>
   <action name="actionLine">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/line.png</normaloff>:/icons/line.png</iconset>
+   </property>
    <property name="text">
     <string>Line</string>
    </property>
@@ -380,6 +399,10 @@
    </property>
   </action>
   <action name="actionBack">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/undo.png</normaloff>:/icons/undo.png</iconset>
+   </property>
    <property name="text">
     <string>Back</string>
    </property>
@@ -387,8 +410,37 @@
     <string>Ctrl+Z</string>
    </property>
   </action>
+  <action name="actionStraight_LIne">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/straightline.png</normaloff>:/icons/straightline.png</iconset>
+   </property>
+   <property name="text">
+    <string>Straight Line</string>
+   </property>
+  </action>
+  <action name="actionRectangle_2">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/rectangle.png</normaloff>:/icons/rectangle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Rectangle</string>
+   </property>
+  </action>
+  <action name="actionCircle_2">
+   <property name="icon">
+    <iconset resource="src.qrc">
+     <normaloff>:/icons/circle.png</normaloff>:/icons/circle.png</iconset>
+   </property>
+   <property name="text">
+    <string>Circle</string>
+   </property>
+  </action>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
- <resources/>
+ <resources>
+  <include location="src.qrc"/>
+ </resources>
  <connections/>
 </ui>
