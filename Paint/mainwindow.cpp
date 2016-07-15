@@ -2,6 +2,7 @@
 #include "mylabel.h"
 #include "ui_mainwindow.h"
 #include "brush.h"
+#include "patternbrush.h"
 
 #include <QPixmap>
 #include <QTimer>
@@ -11,6 +12,7 @@
 #include <QFile>
 #include <QImageReader>
 #include <QCoreApplication>
+
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -32,6 +34,14 @@ MainWindow::MainWindow(QWidget *parent) :
 
     activeBrush = new my::Brush(&history,1);
     activeColor = QColor(0,0,0,255);
+
+    for(my::PatternBrush::Pattern p : my::PatternBrush::GetPatterns())
+    {
+        //QString name  = (QString) p.name;
+        ui->patternBox->addItem(QString::fromStdString( p.name));
+    }
+
+
 
     connect( label_, &MyLabel::onMouseMove, [this](int x, int y)
     {
@@ -73,6 +83,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->actionBack, &QAction::triggered, this, &MainWindow::Undo);
     connect (ui->actionOpen, &QAction::triggered, this, &MainWindow::OpenFile);
     connect (ui->action_2, &QAction::triggered, this, &MainWindow::Save);
+    connect (ui->patternBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetPatternBrush(int)));
 
     label_->setParent(ui->paint);
     ui->selectedColor->setAutoFillBackground(true);
@@ -81,11 +92,17 @@ MainWindow::MainWindow(QWidget *parent) :
     UpdateImage();
 }
 
+void MainWindow::SetPatternBrush(int val){
+    my::PatternBrush::Pattern p = my::PatternBrush::GetPatterns()[val];
+    std::cout << "setBrush" << p.name <<std::endl;
+    activeBrush = new my::PatternBrush(&history, val);
+}
+
 void MainWindow::Save(){
     QString name = QFileDialog::getSaveFileName(this, tr("Save File"),
                                            "/home/jana/untitled.jpg",
                                            tr("Images (*.png *.xpm *.jpg)"));
-    label_->pixmap()->save(name,0, -1);
+    label_->pixmap()->save(name,0, 100);
 
 }
 

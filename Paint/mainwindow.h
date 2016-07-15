@@ -30,7 +30,7 @@ private slots:
     void ChangeSize(int val);
 
     void on_actionDot_triggered();
-
+    void SetPatternBrush(int val);
 private:
     void handleButton();
     void SetBrushDot();
@@ -44,6 +44,7 @@ private:
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
+
     void Save();
     void Undo();
     void OpenFile();

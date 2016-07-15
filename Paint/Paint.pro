@@ -23,7 +23,8 @@ SOURCES += main.cpp\
     gameoflife.cpp \
     rectanglebrush.cpp \
     history.cpp\
-    circlebrush.cpp
+    circlebrush.cpp \
+    patternbrush.cpp
 
 HEADERS  += mainwindow.h \
     image.h \
@@ -34,6 +35,7 @@ HEADERS  += mainwindow.h \
     gameoflife.h \
     rectanglebrush.h \
     history.h \
-    circlebrush.h
+    circlebrush.h \
+    patternbrush.h
 
 FORMS    += mainwindow.ui

@@ -55,7 +55,7 @@ namespace my {
             shared_ptr<tile_t> newTile = make_shared<tile_t>(*tile.tile);
             tile.tile = newTile;
             tile.editFlag = true;
-            std::cout << "Create New Tile @ " << tileX << ", " << tileY << std::endl;
+            //std::cout << "Create New Tile @ " << tileX << ", " << tileY << std::endl;
 
         }
         (*tile.tile)[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ] = pixel;
