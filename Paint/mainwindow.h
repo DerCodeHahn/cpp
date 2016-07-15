@@ -47,6 +47,8 @@ private:
     void StartGameOfLife();
     void UpdateGameOfLife();
 
+    void ColorDialog();
+
     void Save();
     void Undo();
     void OpenFile();

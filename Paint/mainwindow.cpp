@@ -12,7 +12,7 @@
 #include <QFile>
 #include <QImageReader>
 #include <QCoreApplication>
-
+#include <QColorDialog>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -86,8 +86,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->action_2, &QAction::triggered, this, &MainWindow::Save);
     connect (ui->patternBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetPatternBrush(int)));
 
+    connect(ui->actionColor, &QAction::triggered, this, &MainWindow::ColorDialog);
+    connect(ui->colorSelector, &QPushButton::clicked, this, &MainWindow::ColorDialog);
+
     label_->setParent(ui->paint);
-    ui->selectedColor->setAutoFillBackground(true);
     SetSelectedColor();
     //update_label();
     UpdateImage();
@@ -211,9 +213,12 @@ void MainWindow::SlideBlue(int val){
 }
 //Set the Current Color to the Area to show it
 void MainWindow::SetSelectedColor(){
-    QPalette pal = ui->selectedColor->palette();
-    pal.setColor(QPalette::Background, activeColor);
-    ui->selectedColor->setPalette(pal);
+    QString s("background: #"
+              + QString(activeColor.red() < 16? "0" : "") + QString::number(activeColor.red(),16)
+              + QString(activeColor.green() < 16? "0" : "") + QString::number(activeColor.green(),16)
+              + QString(activeColor.blue() < 16? "0" : "") + QString::number(activeColor.blue(),16) + ";");
+    ui->colorSelector->setStyleSheet(s);
+    ui->colorSelector->update();
 }
 
 void MainWindow::UpdateImage()
@@ -252,4 +257,12 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionDot_triggered()
 {
     SetBrushDot();
+}
+
+void MainWindow::ColorDialog(){
+    QColor color = QColorDialog::getColor(activeColor, this);
+    if(color.isValid()){
+        activeColor = color;
+        SetSelectedColor();
+    }
 }
