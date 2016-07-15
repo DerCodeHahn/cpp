@@ -46,8 +46,6 @@ public:
     QAction *actionLine;
     QAction *actionBack;
     QAction *actionStraight_LIne;
-    QAction *actionRectangle_2;
-    QAction *actionCircle_2;
     QWidget *centralWidget;
     QHBoxLayout *horizontalLayout;
     QWidget *paint;
@@ -120,12 +118,6 @@ public:
         QIcon icon5;
         icon5.addFile(QStringLiteral(":/icons/straightline.png"), QSize(), QIcon::Normal, QIcon::Off);
         actionStraight_LIne->setIcon(icon5);
-        actionRectangle_2 = new QAction(MainWindow);
-        actionRectangle_2->setObjectName(QStringLiteral("actionRectangle_2"));
-        actionRectangle_2->setIcon(icon);
-        actionCircle_2 = new QAction(MainWindow);
-        actionCircle_2->setObjectName(QStringLiteral("actionCircle_2"));
-        actionCircle_2->setIcon(icon1);
         centralWidget = new QWidget(MainWindow);
         centralWidget->setObjectName(QStringLiteral("centralWidget"));
         horizontalLayout = new QHBoxLayout(centralWidget);
@@ -246,10 +238,13 @@ public:
         menuFroms->addAction(actionDot);
         menuFroms->addAction(actionLine);
         menuFroms->addAction(actionStraight_LIne);
-        menuFroms->addAction(actionRectangle_2);
-        menuFroms->addAction(actionCircle_2);
+        menuFroms->addAction(actionRectangle);
+        menuFroms->addAction(actionCircle);
         mainToolBar->addAction(actionRectangle);
         mainToolBar->addAction(actionCircle);
+        mainToolBar->addAction(actionDot);
+        mainToolBar->addAction(actionLine);
+        mainToolBar->addAction(actionBack);
 
         retranslateUi(MainWindow);
 
@@ -275,8 +270,6 @@ public:
         actionBack->setText(QApplication::translate("MainWindow", "Back", 0));
         actionBack->setShortcut(QApplication::translate("MainWindow", "Ctrl+Z", 0));
         actionStraight_LIne->setText(QApplication::translate("MainWindow", "Straight Line", 0));
-        actionRectangle_2->setText(QApplication::translate("MainWindow", "Rectangle", 0));
-        actionCircle_2->setText(QApplication::translate("MainWindow", "Circle", 0));
         clearButton->setText(QApplication::translate("MainWindow", "Clear", 0));
         RainbowBox->setText(QApplication::translate("MainWindow", "Rainbow Mode", 0));
         label_2->setText(QApplication::translate("MainWindow", "G", 0));

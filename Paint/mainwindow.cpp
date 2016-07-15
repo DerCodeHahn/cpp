@@ -77,9 +77,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->actionDot, &QAction::triggered, this, &MainWindow::SetBrushDot);
     connect (ui->actionLine, &QAction::triggered, this, &MainWindow::SetBrushLine);
     connect (ui->actionRectangle, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
-    connect (ui->actionRectangle_2, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
     connect (ui->actionCircle, &QAction::triggered, this, &MainWindow::SetBrushCircle);
-    connect (ui->actionCircle_2, &QAction::triggered, this, &MainWindow::SetBrushCircle);
     connect (ui->actionStraight_LIne, &QAction::triggered, this, &MainWindow::SetBrushStraightLine);
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);

@@ -319,8 +319,8 @@
     <addaction name="actionDot"/>
     <addaction name="actionLine"/>
     <addaction name="actionStraight_LIne"/>
-    <addaction name="actionRectangle_2"/>
-    <addaction name="actionCircle_2"/>
+    <addaction name="actionRectangle"/>
+    <addaction name="actionCircle"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -334,6 +334,9 @@
    </attribute>
    <addaction name="actionRectangle"/>
    <addaction name="actionCircle"/>
+   <addaction name="actionDot"/>
+   <addaction name="actionLine"/>
+   <addaction name="actionBack"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
   <action name="actionOpen">
@@ -417,24 +420,6 @@
    </property>
    <property name="text">
     <string>Straight Line</string>
-   </property>
-  </action>
-  <action name="actionRectangle_2">
-   <property name="icon">
-    <iconset resource="src.qrc">
-     <normaloff>:/icons/rectangle.png</normaloff>:/icons/rectangle.png</iconset>
-   </property>
-   <property name="text">
-    <string>Rectangle</string>
-   </property>
-  </action>
-  <action name="actionCircle_2">
-   <property name="icon">
-    <iconset resource="src.qrc">
-     <normaloff>:/icons/circle.png</normaloff>:/icons/circle.png</iconset>
-   </property>
-   <property name="text">
-    <string>Circle</string>
    </property>
   </action>
  </widget>
