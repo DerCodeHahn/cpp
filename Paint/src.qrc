@@ -1,0 +1,10 @@
+<RCC>
+    <qresource prefix="/icons">
+        <file>circle.png</file>
+        <file>rectangle.png</file>
+        <file>dot.png</file>
+        <file>line.png</file>
+        <file>straightline.png</file>
+        <file>undo.png</file>
+    </qresource>
+</RCC>

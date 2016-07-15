@@ -78,6 +78,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->actionLine, &QAction::triggered, this, &MainWindow::SetBrushLine);
     connect (ui->actionRectangle, &QAction::triggered, this, &MainWindow::SetBrushRectangle);
     connect (ui->actionCircle, &QAction::triggered, this, &MainWindow::SetBrushCircle);
+    connect (ui->actionStraight_LIne, &QAction::triggered, this, &MainWindow::SetBrushStraightLine);
     connect (ui->RainbowBox, &QCheckBox::toggled, this, &MainWindow::ToggleRainbowMode);
     connect (ui->GameOfLifeBtn, &QPushButton::clicked, this, &MainWindow::StartGameOfLife);
     connect (ui->actionBack, &QAction::triggered, this, &MainWindow::Undo);
@@ -182,6 +183,11 @@ void MainWindow::SetBrushCircle()
     activeBrush = new my::CircleBrush(&history, (*activeBrush).GetSize());
 }
 
+void MainWindow::SetBrushStraightLine()
+{
+    std::cout << "Set Straight Line Brush" << std::endl;
+    activeBrush = new my::StraightLineBrush(&history, (*activeBrush).GetSize());
+}
 void MainWindow::ChangeSize(int val){
     (*activeBrush).SetSize(val);
 }
