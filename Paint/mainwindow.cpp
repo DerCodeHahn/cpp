@@ -20,7 +20,7 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
     , label_       { new MyLabel(this) }
     , history       { my::Image(400, 400)}
-    , activeBrush { new my::Brush() }// = my::Brush(&image_,1);
+    , activeBrush { new my::Brush() }
 {
     ui->setupUi(this);
 
@@ -31,7 +31,7 @@ MainWindow::MainWindow(QWidget *parent) :
     gameOfLifeTimer = new QTimer (this);
     connect(gameOfLifeTimer, &QTimer::timeout, this, &MainWindow::UpdateGameOfLife);
 
-
+    ui->listWidget->addItem("Test");
     activeBrush = new my::Brush(&history,1);
     activeColor = QColor(0,0,0,255);
 
@@ -88,7 +88,6 @@ MainWindow::MainWindow(QWidget *parent) :
     label_->setParent(ui->paint);
     ui->selectedColor->setAutoFillBackground(true);
     SetSelectedColor();
-    //update_label();
     UpdateImage();
 }
 
@@ -100,7 +99,7 @@ void MainWindow::SetPatternBrush(int val){
 
 void MainWindow::Save(){
     QString name = QFileDialog::getSaveFileName(this, tr("Save File"),
-                                           "/home/jana/untitled.jpg",
+                                           "ultraImg.jpg",
                                            tr("Images (*.png *.xpm *.jpg)"));
     label_->pixmap()->save(name,0, 100);
 
