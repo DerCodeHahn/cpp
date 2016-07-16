@@ -53,12 +53,13 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseDown, [this](int x, int y)
     {
+        history.Commit("activeBrush");
        //std::cout << "mouse down @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseDown(x, y, color);
        this->UpdateImage();
 
-       history.Commit("activeBrush");
+
     });
     connect( label_, &MyLabel::onMouseUp, [this](int x, int y)
     {

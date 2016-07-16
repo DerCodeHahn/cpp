@@ -16,8 +16,8 @@ namespace my {
         tileSizeY = height / 10;
         data_ = std::vector<SharedTile_t>(100);
         for (int tilecount = 0; tilecount < 100; ++tilecount) {
-            data_[tilecount].tile = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
-            fill(data_[tilecount].tile->begin(), data_[tilecount].tile->end(), color);
+            data_[tilecount] = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
+            fill(data_[tilecount]->begin(), data_[tilecount]->end(), color);
         }
 
     }
@@ -27,9 +27,8 @@ namespace my {
     {
         for(SharedTile_t& tile : data_)
         {
-            tile.tile = make_shared<tile_t>(*tile.tile);
-            fill(tile.tile->begin(), tile.tile->end(), color);
-            tile.editFlag = false;
+            tile = make_shared<tile_t>(*tile);
+            fill(tile->begin(), tile->end(), color);
         }
 
         bgColor = color;
@@ -50,15 +49,14 @@ namespace my {
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
         SharedTile_t& tile = data_[tileX + tileY*10 ];
-        if(!tile.tile.unique())
+        if(!tile.unique())
         {
-            shared_ptr<tile_t> newTile = make_shared<tile_t>(*tile.tile);
-            tile.tile = newTile;
-            tile.editFlag = true;
+            shared_ptr<tile_t> newTile = make_shared<tile_t>(*tile);
+            tile = newTile;
             //std::cout << "Create New Tile @ " << tileX << ", " << tileY << std::endl;
 
         }
-        (*tile.tile)[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ] = pixel;
+        (*tile)[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ] = pixel;
 
     }
 
@@ -67,7 +65,7 @@ namespace my {
             return bgColor;
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
-        tile_t& tile = (*data_[tileX + tileY*10 ].tile);
+        tile_t& tile = (*data_[tileX + tileY*10 ]);
         return tile[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
 
     }
@@ -75,7 +73,7 @@ namespace my {
     uint32_t& Image::getPixelRef(int x, int y){
         int tileX = x / tileSizeX;
         int tileY = y / tileSizeY;
-        tile_t& tile = *data_[tileX + tileY*10 ].tile;
+        tile_t& tile = *data_[tileX + tileY*10 ];
         return tile[ x % tileSizeX + (y % tileSizeY) * tileSizeX  ];
     }
 
@@ -99,7 +97,7 @@ namespace my {
         tileSizeY = height_ / 10;
         data_ = std::vector<SharedTile_t>(100);
         for (int tilecount = 0; tilecount < 100; ++tilecount) {
-            data_[tilecount].tile = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
+            data_[tilecount] = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
             int minY = (tilecount / 10) * tileSizeY;
             int maxY = minY + tileSizeY;
             for (int y = minY ; y < maxY; ++y) {

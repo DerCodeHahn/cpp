@@ -18,8 +18,9 @@ public:
     using pixel_t = std::uint32_t;
     using tile_t = std::vector<pixel_t>;
 
-    struct SharedTile_t { bool editFlag = false; std::shared_ptr<tile_t> tile;};
+    using SharedTile_t = std::shared_ptr<tile_t>;
 
+    SharedTile_t tile;
 
     Image( int width = {} , int height = {} );
 
