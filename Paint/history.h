@@ -20,6 +20,7 @@ public:
     Image& Current();
     void Undo();
     std::vector<std::string> GetNameList();
+    my::Image& GetImage(int nr);
 };
 }
 

@@ -87,10 +87,19 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect(ui->actionColor, &QAction::triggered, this, &MainWindow::ColorDialog);
     connect(ui->colorSelector, &QPushButton::clicked, this, &MainWindow::ColorDialog);
+    connect(ui->listWidget, &QListWidget::currentRowChanged,this, &MainWindow::GetHistoryImage);
 
     label_->setParent(ui->paint);
     SetSelectedColor();
     UpdateImage();
+}
+
+void MainWindow::GetHistoryImage(int img){
+    if(img == -1)
+        return;
+    std::cout << " History " << img << "/" << history.GetNameList().size() << std::endl;
+    my::Image& tempImg = history.GetImage(img);
+    ShowImage(tempImg);
 }
 
 void MainWindow::SetPatternBrush(int val){
@@ -221,6 +230,10 @@ void MainWindow::SetSelectedColor(){
 void MainWindow::UpdateImage()
 {
     my::Image& img = history.Current();
+    ShowImage(img);
+}
+
+void MainWindow::ShowImage(my::Image img){
     const std::vector<uint32_t> data = img.getData();
        auto qimage = QImage(
           reinterpret_cast<uchar const*>(data.data()), img.width(), img.height(),
@@ -229,6 +242,7 @@ void MainWindow::UpdateImage()
     label_->setPixmap(QPixmap::fromImage( qimage ));
     UpdateHistory();
 }
+
 void MainWindow::handleButton()
 {
     uint32_t color = GetActiveColorCode();

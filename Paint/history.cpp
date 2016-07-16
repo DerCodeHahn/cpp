@@ -8,7 +8,6 @@ namespace my {
     {
         Step s {i,"initial Pic"};
         history.push_back(s);
-        Commit("first Save");
     }
 
     void History::Commit(std::string msg){
@@ -35,9 +34,15 @@ namespace my {
 
     std::vector<std::string> History::GetNameList(){
         std::vector<std::string> list;
-        for(Step s : history)
+        for(Step& s : history)
             list.push_back(s.Message);
         return list;
+    }
+
+    Image& History::GetImage(int nr)
+    {
+        Step& s =  history[history.size() - 1 - nr];
+        return s.img;
     }
 }
 

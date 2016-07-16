@@ -54,7 +54,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>0</number>
+        <number>1</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -237,7 +237,7 @@
            <x>0</x>
            <y>0</y>
            <width>161</width>
-           <height>261</height>
+           <height>241</height>
           </rect>
          </property>
         </widget>
@@ -320,7 +320,7 @@
      <x>0</x>
      <y>0</y>
      <width>669</width>
-     <height>27</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

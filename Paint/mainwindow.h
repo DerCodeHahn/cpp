@@ -35,6 +35,8 @@ private slots:
     void on_actionDot_triggered();
     void SetPatternBrush(int val);
 private:
+    void GetHistoryImage(int img);
+    void ShowImage(my::Image img);
     void UpdateHistory();
     void handleButton();
     void SetBrushDot();
