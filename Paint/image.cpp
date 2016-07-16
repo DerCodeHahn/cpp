@@ -19,7 +19,6 @@ namespace my {
             data_[tilecount] = make_shared< tile_t>(tileSizeY * tileSizeX ) ;
             fill(data_[tilecount]->begin(), data_[tilecount]->end(), color);
         }
-
     }
 
     //Clear image with a color

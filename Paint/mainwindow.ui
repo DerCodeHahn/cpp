@@ -236,9 +236,12 @@
           <rect>
            <x>0</x>
            <y>0</y>
-           <width>161</width>
+           <width>141</width>
            <height>241</height>
           </rect>
+         </property>
+         <property name="frameShadow">
+          <enum>QFrame::Plain</enum>
          </property>
         </widget>
        </widget>

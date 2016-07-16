@@ -20,8 +20,6 @@ public:
 
     using SharedTile_t = std::shared_ptr<tile_t>;
 
-    SharedTile_t tile;
-
     Image( int width = {} , int height = {} );
 
     void set_pixel( int x, int y, pixel_t pixel );

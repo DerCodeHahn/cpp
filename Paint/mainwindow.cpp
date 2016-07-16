@@ -38,9 +38,6 @@ MainWindow::MainWindow(QWidget *parent) :
     for(my::PatternBrush::Pattern p : my::PatternBrush::GetPatterns())
         ui->patternBox->addItem(QString::fromStdString( p.name));
 
-
-
-
     connect( label_, &MyLabel::onMouseMove, [this](int x, int y)
     {
        //std::cout << "mouse move: " << x << ", " << y << std::endl;
@@ -113,7 +110,6 @@ void MainWindow::Save(){
                                            "ultraImg.jpg",
                                            tr("Images (*.png *.xpm *.jpg)"));
     label_->pixmap()->save(name,0, 100);
-
 }
 
 void MainWindow::Undo(){
@@ -125,7 +121,6 @@ void MainWindow::StartGameOfLife(){
     game = my::GameOfLife( false);
     gameOfLifeTimer->start(500);
     std::cout << "Game of Life Start " << std::endl;
-
 }
 
 void MainWindow::UpdateGameOfLife() {
@@ -160,7 +155,6 @@ void MainWindow::OpenFile(){
 }
 
 void MainWindow::UpdateRainbow(){
-
     colorfader.Update();
     std::vector<int> c = colorfader.getColor();
     activeColor.setRed(c[0]);
