@@ -19,6 +19,7 @@ public:
     void Commit(std::string msg);
     Image& Current();
     void Undo();
+    std::vector<std::string> GetNameList();
 };
 }
 

@@ -22,9 +22,11 @@ class MainWindow : public QMainWindow
     class MyLabel*  label_;
     my::History     history;
     my::Brush*      activeBrush;
+
 public:
     explicit MainWindow(QWidget *parent = 0);
     void UpdateImage();
+
     QColor activeColor;
     ~MainWindow();
 private slots:
@@ -33,6 +35,7 @@ private slots:
     void on_actionDot_triggered();
     void SetPatternBrush(int val);
 private:
+    void UpdateHistory();
     void handleButton();
     void SetBrushDot();
     void SetBrushLine();
@@ -46,6 +49,8 @@ private:
     void UpdateRainbow();
     void StartGameOfLife();
     void UpdateGameOfLife();
+
+    void ColorDialog();
 
     void Save();
     void Undo();

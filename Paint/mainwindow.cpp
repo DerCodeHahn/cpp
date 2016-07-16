@@ -12,7 +12,7 @@
 #include <QFile>
 #include <QImageReader>
 #include <QCoreApplication>
-
+#include <QColorDialog>
 
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -36,10 +36,8 @@ MainWindow::MainWindow(QWidget *parent) :
     activeColor = QColor(0,0,0,255);
 
     for(my::PatternBrush::Pattern p : my::PatternBrush::GetPatterns())
-    {
-        //QString name  = (QString) p.name;
         ui->patternBox->addItem(QString::fromStdString( p.name));
-    }
+
 
 
 
@@ -53,7 +51,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     connect( label_, &MyLabel::onMouseDown, [this](int x, int y)
     {
-        history.Commit("activeBrush");
+        history.Commit((*activeBrush).Description);
        //std::cout << "mouse down @ " << x << ", " << y << std::endl;
        int color = (int) GetActiveColorCode();
        (*activeBrush).OnMouseDown(x, y, color);
@@ -87,8 +85,10 @@ MainWindow::MainWindow(QWidget *parent) :
     connect (ui->action_2, &QAction::triggered, this, &MainWindow::Save);
     connect (ui->patternBox, SIGNAL(currentIndexChanged(int)), this, SLOT(SetPatternBrush(int)));
 
+    connect(ui->actionColor, &QAction::triggered, this, &MainWindow::ColorDialog);
+    connect(ui->colorSelector, &QPushButton::clicked, this, &MainWindow::ColorDialog);
+
     label_->setParent(ui->paint);
-    ui->selectedColor->setAutoFillBackground(true);
     SetSelectedColor();
     UpdateImage();
 }
@@ -147,7 +147,6 @@ void MainWindow::OpenFile(){
     history.Commit("LoadImg");
     history.Current().SetData(img);
     UpdateImage();
-    //label_->setPixmap(QPixmap::fromImage( img ));
     label_->resize(img.width(), img.height());
 }
 
@@ -211,9 +210,12 @@ void MainWindow::SlideBlue(int val){
 }
 //Set the Current Color to the Area to show it
 void MainWindow::SetSelectedColor(){
-    QPalette pal = ui->selectedColor->palette();
-    pal.setColor(QPalette::Background, activeColor);
-    ui->selectedColor->setPalette(pal);
+    QString s("background: #"
+              + QString(activeColor.red() < 16? "0" : "") + QString::number(activeColor.red(),16)
+              + QString(activeColor.green() < 16? "0" : "") + QString::number(activeColor.green(),16)
+              + QString(activeColor.blue() < 16? "0" : "") + QString::number(activeColor.blue(),16) + ";");
+    ui->colorSelector->setStyleSheet(s);
+    ui->colorSelector->update();
 }
 
 void MainWindow::UpdateImage()
@@ -225,6 +227,7 @@ void MainWindow::UpdateImage()
           sizeof(my::Image::pixel_t)*img.width(), QImage::Format_ARGB32
        );
     label_->setPixmap(QPixmap::fromImage( qimage ));
+    UpdateHistory();
 }
 void MainWindow::handleButton()
 {
@@ -252,4 +255,20 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionDot_triggered()
 {
     SetBrushDot();
+}
+
+void MainWindow::ColorDialog(){
+    QColor color = QColorDialog::getColor(activeColor, this);
+    if(color.isValid()){
+        activeColor = color;
+        SetSelectedColor();
+    }
+}
+
+void MainWindow::UpdateHistory(){
+    ui->listWidget->clear();
+    std::vector<std::string> list  = history.GetNameList();
+    std::reverse(list.begin(), list.end());
+    for(std::string s : list)
+        ui->listWidget->addItem(QString::fromStdString(s));
 }

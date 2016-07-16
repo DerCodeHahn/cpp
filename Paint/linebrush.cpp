@@ -5,7 +5,7 @@ namespace my{
 
 LineBrush::LineBrush(History *h, int size):Brush(h,size)
 {
-
+    Description = "LineBrush";
 }
 
 void  LineBrush::OnMouseMove(int xpos, int ypos, int color)

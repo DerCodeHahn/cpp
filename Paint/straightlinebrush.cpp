@@ -6,13 +6,13 @@ namespace my{
 
 StraightLineBrush::StraightLineBrush(History *h, int size):Brush(h,size)
 {
-
+    Description = "StraightLineBrush";
 }
 
 void  StraightLineBrush::OnMouseMove(int xpos, int ypos, int color)
 {
     history->Undo();
-    history->Commit("");
+    history->Commit("DragLine");
     DrawLine(xpos, ypos, color);
 }
 

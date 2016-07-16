@@ -13,13 +13,25 @@
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
      <widget class="QWidget" name="paint" native="true"/>
     </item>
     <item>
      <widget class="QWidget" name="widget" native="true">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="maximumSize">
        <size>
         <width>150</width>
@@ -42,7 +54,7 @@
         <enum>QTabWidget::Rounded</enum>
        </property>
        <property name="currentIndex">
-        <number>1</number>
+        <number>0</number>
        </property>
        <property name="elideMode">
         <enum>Qt::ElideNone</enum>
@@ -156,22 +168,6 @@
           <enum>Qt::Horizontal</enum>
          </property>
         </widget>
-        <widget class="QFrame" name="selectedColor">
-         <property name="geometry">
-          <rect>
-           <x>0</x>
-           <y>30</y>
-           <width>91</width>
-           <height>21</height>
-          </rect>
-         </property>
-         <property name="frameShape">
-          <enum>QFrame::StyledPanel</enum>
-         </property>
-         <property name="frameShadow">
-          <enum>QFrame::Raised</enum>
-         </property>
-        </widget>
         <widget class="QLabel" name="label">
          <property name="geometry">
           <rect>
@@ -212,6 +208,22 @@
          </property>
          <property name="text">
           <string>B</string>
+         </property>
+        </widget>
+        <widget class="QPushButton" name="colorSelector">
+         <property name="geometry">
+          <rect>
+           <x>0</x>
+           <y>30</y>
+           <width>91</width>
+           <height>21</height>
+          </rect>
+         </property>
+         <property name="autoFillBackground">
+          <bool>true</bool>
+         </property>
+         <property name="text">
+          <string/>
          </property>
         </widget>
        </widget>
@@ -331,6 +343,8 @@
     <addaction name="actionStraight_LIne"/>
     <addaction name="actionRectangle"/>
     <addaction name="actionCircle"/>
+    <addaction name="separator"/>
+    <addaction name="actionColor"/>
    </widget>
    <addaction name="menuFile"/>
    <addaction name="menuFroms"/>
@@ -342,10 +356,11 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionRectangle"/>
-   <addaction name="actionCircle"/>
    <addaction name="actionDot"/>
    <addaction name="actionLine"/>
+   <addaction name="actionStraight_LIne"/>
+   <addaction name="actionRectangle"/>
+   <addaction name="actionCircle"/>
    <addaction name="actionBack"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
@@ -430,6 +445,11 @@
    </property>
    <property name="text">
     <string>Straight Line</string>
+   </property>
+  </action>
+  <action name="actionColor">
+   <property name="text">
+    <string>Color</string>
    </property>
   </action>
  </widget>

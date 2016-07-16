@@ -7,11 +7,12 @@ namespace my{
 
 CircleBrush::CircleBrush(History *h, int size):Brush(h,size)
 {
+    Description = "CirleBrush";
 }
 void  CircleBrush::OnMouseMove(int xpos, int ypos, int color)
 {
     history->Undo();
-    history->Commit("");
+    history->Commit("Drag Cirle");
     DrawCircle(xpos,ypos,color);
 }
 

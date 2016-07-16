@@ -4,11 +4,12 @@ namespace my{
 
 RectangleBrush::RectangleBrush(History *h, int size):Brush(h,size)
 {
+    Description = "RectangleBrush";
 }
 void  RectangleBrush::OnMouseMove(int xpos, int ypos, int color)
 {
       history->Undo();
-      history->Commit("");
+      history->Commit("DragRect");
       DrawRectangle(xpos, ypos, color);
 
 }

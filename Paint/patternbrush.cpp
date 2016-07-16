@@ -4,7 +4,7 @@
 namespace my{
 PatternBrush::PatternBrush():activePattern (GetPatterns()[0])
 {
-
+    Description = "PatternBrush";
 }
 PatternBrush::PatternBrush(History* h, int p):activePattern(GetPatterns()[p])
 {

@@ -17,10 +17,12 @@ public:
     Brush();
     Brush(History* h, int size):history(h), size_(size)
     {
+        Description = "DotBrush";
     }
     virtual void OnMouseDown(int x, int y, int color);
     virtual void OnMouseMove(int x, int y, int color);
     virtual void OnMouseUp(int x, int y, int color);
+    std::string Description;
     void SetSize(int size);
     int GetSize();
 

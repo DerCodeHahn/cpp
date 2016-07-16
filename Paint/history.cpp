@@ -32,5 +32,12 @@ namespace my {
         std::cout << "Undo now at "<< history.size()<< ((Step)history[history.size() - 1]).Message << std::endl;
         //history.erase(history.end());
     }
+
+    std::vector<std::string> History::GetNameList(){
+        std::vector<std::string> list;
+        for(Step s : history)
+            list.push_back(s.Message);
+        return list;
+    }
 }
 
